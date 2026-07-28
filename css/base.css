@@ -26,7 +26,7 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
   transition: background-color var(--duration) var(--ease),
-              color var(--duration) var(--ease);
+    color var(--duration) var(--ease);
 }
 
 a {
@@ -41,7 +41,10 @@ img {
   display: block;
 }
 
-ul, ol { list-style: none; }
+ul,
+ol {
+  list-style: none;
+}
 
 button {
   cursor: pointer;
@@ -52,7 +55,8 @@ button {
   color: inherit;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
   font-size: inherit;
   outline: none;
@@ -84,9 +88,9 @@ input, textarea {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   transition: transform var(--duration) var(--ease),
-              box-shadow var(--duration) var(--ease),
-              border-color var(--duration) var(--ease),
-              background var(--duration) var(--ease);
+    box-shadow var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    background var(--duration) var(--ease);
 }
 
 .glass-card:hover {
@@ -153,7 +157,7 @@ input, textarea {
 }
 
 .btn--primary:hover::before {
-  opacity: 1;
+  /* opacity: 1; */
 }
 
 .btn--primary i,
