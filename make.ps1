@@ -4,7 +4,7 @@ param (
 )
 
 $Branch = (git branch --show-current).Trim()
-$TargetBranch = "main"
+$TargetBranch = "dev"
 $RepoUrl = "https://github.com/NTPhong04102k4/portfolio"
 
 switch ($Action.ToLower()) {

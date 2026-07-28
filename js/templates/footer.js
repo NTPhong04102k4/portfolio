@@ -1,7 +1,7 @@
 /* ========================================================
    TEMPLATE — Footer + Back to Top
    ======================================================== */
-import { SOCIAL_LINKS } from '../constants.js';
+import { SOCIAL_LINKS } from "../constants.js";
 
 /**
  * Render the footer with logo, socials, and copyright.
@@ -10,15 +10,15 @@ import { SOCIAL_LINKS } from '../constants.js';
 export function renderFooter() {
   const socials = SOCIAL_LINKS.map(
     (s) =>
-      `<a href="${s.href}"${s.target ? ` target="${s.target}" rel="noopener"` : ''} aria-label="${s.label}"><i class="${s.icon}"></i></a>`,
-  ).join('\n          ');
+      `<a href="${s.href}"${s.target ? ` target="${s.target}" rel="noopener"` : ""} aria-label="${s.label}"><i class="${s.icon}"></i></a>`,
+  ).join("\n          ");
 
   return `
   <footer id="footer" class="footer section">
     <div class="container">
       <div class="footer__content">
         <a href="#hero" class="footer__logo">
-          <span class="navbar__logo-bracket">&lt;</span>Phong<span class="navbar__logo-slash"> /</span><span class="navbar__logo-bracket">&gt;</span>
+          <span class="navbar__logo-bracket">&lt;</span>Phong<span class="navbar__logo-slash"> </span><span class="navbar__logo-bracket">&gt;</span>
         </a>
         <div class="footer__socials">
           ${socials}
