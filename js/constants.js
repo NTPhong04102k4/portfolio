@@ -122,6 +122,7 @@ export const NAV_LINKS = [
   { href: '#projects', label: 'Dự án', section: 'projects' },
   { href: '#experience', label: 'Kinh nghiệm', section: 'experience' },
   { href: '#contact', label: 'Liên hệ', section: 'contact' },
+  { href: '#footer', label: 'Cuối trang', section: 'footer' },
 ];
 
 /** Personal info */
