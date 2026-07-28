@@ -1,0 +1,51 @@
+/* ========================================================
+   ANIMATIONS — Keyframes & Reveal Effects
+   ======================================================== */
+
+/* ======================== LOADER ======================== */
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ======================== HERO ORBS ======================== */
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(30px, -30px); }
+  66%      { transform: translate(-20px, 20px); }
+}
+
+/* ======================== CURSOR BLINK ======================== */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ======================== SCROLL WHEEL ======================== */
+@keyframes scroll-wheel {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+/* ======================== TIMELINE PULSE ======================== */
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.5); opacity: 0; }
+}
+
+/* ======================== REVEAL ANIMATIONS ======================== */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal-up    { transform: translateY(40px); }
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+
+.reveal-up.revealed,
+.reveal-left.revealed,
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translate(0, 0);
+}
