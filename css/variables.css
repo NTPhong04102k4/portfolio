@@ -1,0 +1,144 @@
+/* ========================================================
+   CSS VARIABLES — Theme System (Dark / Light)
+   All colors use CSS custom properties so switching theme
+   only requires changing the data-theme attribute on <html>.
+   ======================================================== */
+
+/* ======================== DARK THEME (default) ======================== */
+:root,
+html[data-theme="dark"] {
+  /* Backgrounds */
+  --clr-bg:          #0a0a1a;
+  --clr-bg-light:    #10102a;
+  --clr-bg-card:     rgba(16, 16, 42, 0.6);
+  --clr-surface:     rgba(255, 255, 255, 0.03);
+  --clr-border:      rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --clr-text:        #e0e0f0;
+  --clr-text-muted:  #8888aa;
+  --clr-text-dim:    #555577;
+  --clr-white:       #ffffff;
+  --clr-heading:     #ffffff;
+
+  /* Accent — shared between themes */
+  --clr-primary:     #6C63FF;
+  --clr-secondary:   #00D4AA;
+  --clr-accent:      #FF6B9D;
+  --gradient:        linear-gradient(135deg, var(--clr-primary), var(--clr-secondary));
+  --gradient-hover:  linear-gradient(135deg, var(--clr-secondary), var(--clr-primary));
+  --gradient-accent: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+
+  /* Glass */
+  --glass-bg:        rgba(16, 16, 42, 0.55);
+  --glass-border:    rgba(255, 255, 255, 0.1);
+  --glass-blur:      20px;
+
+  /* Shadows */
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md:       0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-lg:       0 16px 64px rgba(0, 0, 0, 0.4);
+  --shadow-glow:     0 0 30px rgba(108, 99, 255, 0.15);
+
+  /* Navbar scrolled */
+  --navbar-scrolled-bg:     rgba(10, 10, 26, 0.85);
+  --navbar-scrolled-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  /* Mobile menu */
+  --mobile-menu-bg:  rgba(10, 10, 26, 0.97);
+
+  /* Skill tag */
+  --skill-tag-bg:    rgba(108, 99, 255, 0.1);
+  --skill-tag-border:rgba(108, 99, 255, 0.2);
+
+  /* Project card tag */
+  --project-tag-bg:    rgba(0, 212, 170, 0.1);
+  --project-tag-border:rgba(0, 212, 170, 0.2);
+
+  /* Form */
+  --form-border:     rgba(255, 255, 255, 0.08);
+
+  /* Backdrop */
+  --backdrop-bg:     rgba(0, 0, 0, 0.5);
+}
+
+/* ======================== LIGHT THEME ======================== */
+html[data-theme="light"] {
+  /* Backgrounds */
+  --clr-bg:          #f0f0f8;
+  --clr-bg-light:    #e8e8f2;
+  --clr-bg-card:     rgba(255, 255, 255, 0.85);
+  --clr-surface:     rgba(0, 0, 0, 0.02);
+  --clr-border:      rgba(0, 0, 0, 0.08);
+
+  /* Text */
+  --clr-text:        #2a2a4a;
+  --clr-text-muted:  #5a5a7a;
+  --clr-text-dim:    #8a8aaa;
+  --clr-white:       #ffffff;
+  --clr-heading:     #1a1a3a;
+
+  /* Accent — slightly adjusted for light bg */
+  --clr-primary:     #5b52e6;
+  --clr-secondary:   #00b894;
+  --clr-accent:      #e6577a;
+
+  /* Glass */
+  --glass-bg:        rgba(255, 255, 255, 0.65);
+  --glass-border:    rgba(0, 0, 0, 0.08);
+
+  /* Shadows */
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md:       0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-lg:       0 16px 64px rgba(0, 0, 0, 0.1);
+  --shadow-glow:     0 0 30px rgba(91, 82, 230, 0.12);
+
+  /* Navbar scrolled */
+  --navbar-scrolled-bg:     rgba(240, 240, 248, 0.9);
+  --navbar-scrolled-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+
+  /* Mobile menu */
+  --mobile-menu-bg:  rgba(240, 240, 248, 0.97);
+
+  /* Skill tag */
+  --skill-tag-bg:    rgba(91, 82, 230, 0.08);
+  --skill-tag-border:rgba(91, 82, 230, 0.18);
+
+  /* Project card tag */
+  --project-tag-bg:    rgba(0, 184, 148, 0.08);
+  --project-tag-border:rgba(0, 184, 148, 0.18);
+
+  /* Form */
+  --form-border:     rgba(0, 0, 0, 0.1);
+
+  /* Backdrop */
+  --backdrop-bg:     rgba(0, 0, 0, 0.3);
+}
+
+/* ======================== SHARED DESIGN TOKENS ======================== */
+:root {
+  /* Typography */
+  --ff-heading: 'Outfit', sans-serif;
+  --ff-body:    'Inter', sans-serif;
+  --fs-hero:    clamp(2.5rem, 6vw, 5rem);
+  --fs-h2:      clamp(1.8rem, 4vw, 2.8rem);
+  --fs-h3:      clamp(1.1rem, 2vw, 1.4rem);
+  --fs-body:    1rem;
+  --fs-sm:      0.875rem;
+  --fs-xs:      0.75rem;
+
+  /* Spacing */
+  --section-py: clamp(80px, 10vh, 120px);
+  --container:  1200px;
+  --gap:        2rem;
+
+  /* Radius */
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  32px;
+
+  /* Transitions */
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --duration:   0.35s;
+}

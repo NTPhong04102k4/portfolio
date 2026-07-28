@@ -1,0 +1,137 @@
+/* ======================== PROJECTS ======================== */
+.projects__filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.projects__filter {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  border: 1px solid var(--clr-border);
+  transition: all var(--duration) var(--ease);
+}
+
+.projects__filter:hover {
+  color: var(--clr-heading);
+  border-color: var(--clr-primary);
+}
+
+.projects__filter.active {
+  background: var(--gradient);
+  color: var(--clr-white);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.projects__card {
+  overflow: hidden;
+  transition: all 0.5s var(--ease);
+}
+
+.projects__card.hidden {
+  display: none;
+}
+
+.projects__card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.projects__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.projects__card:hover .projects__card-image img {
+  transform: scale(1.08);
+}
+
+.projects__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.7), rgba(0, 212, 170, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.projects__card:hover .projects__card-overlay {
+  opacity: 1;
+}
+
+.projects__card-link {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--clr-white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s var(--ease);
+  transform: translateY(20px);
+}
+
+.projects__card:hover .projects__card-link {
+  transform: translateY(0);
+}
+
+.projects__card-link:hover {
+  background: var(--clr-white);
+  color: var(--clr-primary);
+}
+
+.projects__card-content {
+  padding: 1.5rem;
+}
+
+.projects__card-title {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--clr-heading);
+  margin-bottom: 0.75rem;
+}
+
+.projects__card-description {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.projects__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.projects__card-tags span {
+  padding: 0.25rem 0.65rem;
+  background: var(--project-tag-bg);
+  border: 1px solid var(--project-tag-border);
+  border-radius: 50px;
+  font-size: var(--fs-xs);
+  color: var(--clr-secondary);
+}
