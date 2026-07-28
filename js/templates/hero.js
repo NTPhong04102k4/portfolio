@@ -33,6 +33,9 @@ export function renderHero() {
         <a href="#projects" class="btn btn--primary">
           <i class="fas fa-rocket"></i> Xem dự án
         </a>
+        <a href="${PERSONAL_INFO.cvHref}" download class="btn btn--outline">
+          <i class="fas fa-download"></i> Tải CV (PDF)
+        </a>
         <a href="#contact" class="btn btn--outline">
           <i class="fas fa-paper-plane"></i> Liên hệ
         </a>
