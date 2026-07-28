@@ -5,7 +5,7 @@ set TARGET_BRANCH=main
 for /f "tokens=*" %%a in ('git branch --show-current') do set BRANCH=%%a
 set REPO_URL=https://github.com/NTPhong04102k4/portfolio
 
-if "%1"=="" goto help
+if "%1"=="" goto dev
 if "%1"=="help" goto help
 if "%1"=="dev" goto dev
 if "%1"=="status" goto status

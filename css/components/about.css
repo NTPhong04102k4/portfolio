@@ -37,21 +37,37 @@
 
 .about__image-decoration {
   position: absolute;
-  top: -15px;
-  right: -15px;
-  bottom: 15px;
-  left: 15px;
-  border: 2px solid var(--clr-primary);
-  border-radius: var(--radius-lg);
+  inset: -15px;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.45), rgba(0, 212, 170, 0.35));
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   z-index: -1;
-  opacity: 0.3;
+  filter: blur(12px);
+  animation: blob-morph 9s ease-in-out infinite alternate;
+  opacity: 0.75;
   transition: all 0.5s var(--ease);
 }
 
 .about__image-wrapper:hover .about__image-decoration {
-  top: -10px;
-  right: -10px;
-  opacity: 0.5;
+  opacity: 0.95;
+  filter: blur(8px);
+  transform: scale(1.05);
+}
+
+@keyframes blob-morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg);
+  }
+  33% {
+    border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%;
+  }
+  66% {
+    border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%;
+  }
+  100% {
+    border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
+    transform: rotate(180deg);
+  }
 }
 
 .about__card {

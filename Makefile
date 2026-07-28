@@ -6,6 +6,7 @@ BRANCH ?= $(shell git branch --show-current)
 TARGET_BRANCH ?= main
 REPO_URL = https://github.com/NTPhong04102k4/portfolio
 
+.DEFAULT_GOAL := dev
 .PHONY: help dev status commit push pr sync nginx-test
 
 help:
