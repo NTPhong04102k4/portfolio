@@ -1,5 +1,5 @@
 param (
-    [string]$Action = "help",
+    [string]$Action = "dev",
     [string]$Msg = "update: portfolio changes"
 )
 

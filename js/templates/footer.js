@@ -14,7 +14,7 @@ export function renderFooter() {
   ).join('\n          ');
 
   return `
-  <footer class="footer">
+  <footer id="footer" class="footer section">
     <div class="container">
       <div class="footer__content">
         <a href="#hero" class="footer__logo">
