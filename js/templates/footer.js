@@ -18,7 +18,7 @@ export function renderFooter() {
     <div class="container">
       <div class="footer__content">
         <a href="#hero" class="footer__logo">
-          <span class="navbar__logo-bracket">&lt;</span>Phong<span class="navbar__logo-slash"> </span><span class="navbar__logo-bracket">&gt;</span>
+          <span class="navbar__logo-bracket">&lt;</span>Phong<span class="navbar__logo-slash"> /</span><span class="navbar__logo-bracket">&gt;</span>
         </a>
         <div class="footer__socials">
           ${socials}
