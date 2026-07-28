@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set TARGET_BRANCH=main
+set TARGET_BRANCH=dev
 for /f "tokens=*" %%a in ('git branch --show-current') do set BRANCH=%%a
 set REPO_URL=https://github.com/NTPhong04102k4/portfolio
 
@@ -19,7 +19,7 @@ goto help
 
 :help
 echo ========================================================
-echo            PORTFOLIO MAKEFILE COMMANDS (WINDOWS)        
+echo            PORTFOLIO MAKEFILE COMMANDS (WINDOWS)
 echo ========================================================
 echo   make dev                 - Chay local dev server (cong 8080)
 echo   make status              - Kiem tra trang thai Git
