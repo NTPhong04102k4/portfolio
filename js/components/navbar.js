@@ -3,7 +3,7 @@
    Scroll effect, mobile menu, active section tracking
    ======================================================== */
 import { $, $$, createBackdrop, createScrollSentinel } from '../utils.js';
-import { SELECTORS, SCROLL_CONFIG, NAV_OBSERVER_OPTIONS } from '../constants.js';
+import { SELECTORS, SCROLL_CONFIG, NAV_OBSERVER_OPTIONS, NAV_COLLAPSE_QUERY } from '../constants.js';
 
 /**
  * Initialise all navbar behaviours.
@@ -28,25 +28,36 @@ export function initNavbar() {
   // ---- Mobile menu ----
   const backdrop = createBackdrop();
 
-  function toggleMenu() {
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('open');
-    backdrop.classList.toggle('visible');
-    document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+  function setMenu(open) {
+    navToggle.classList.toggle('active', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navMenu.classList.toggle('open', open);
+    backdrop.classList.toggle('visible', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  function closeMenu() {
-    navToggle.classList.remove('active');
-    navMenu.classList.remove('open');
-    backdrop.classList.remove('visible');
-    document.body.style.overflow = '';
-  }
+  const isOpen = () => navMenu.classList.contains('open');
+  const closeMenu = () => setMenu(false);
 
-  navToggle.addEventListener('click', toggleMenu);
+  navToggle.addEventListener('click', () => setMenu(!isOpen()));
   backdrop.addEventListener('click', closeMenu);
 
   navLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) {
+      closeMenu();
+      navToggle.focus();
+    }
+  });
+
+  // If the viewport grows past the collapse breakpoint while the drawer is
+  // open, the drawer CSS goes away but body overflow / backdrop would stay.
+  const collapseQuery = window.matchMedia(NAV_COLLAPSE_QUERY);
+  collapseQuery.addEventListener('change', (e) => {
+    if (!e.matches) closeMenu();
   });
 
   // ---- Active section tracking ----

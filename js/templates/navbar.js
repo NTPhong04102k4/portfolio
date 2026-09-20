@@ -25,9 +25,9 @@ export function renderNavbar() {
       <div class="navbar__actions">
 
         <button class="theme-toggle" aria-label="Chuyển đổi theme">
-          <i class="theme-toggle__icon fas fa-moon"></i>
+          <i class="theme-toggle__icon fas fa-moon" aria-hidden="true"></i>
         </button>
-        <button id="nav-toggle" class="navbar__toggle" aria-label="Toggle menu">
+        <button id="nav-toggle" class="navbar__toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="nav-menu">
           <span class="navbar__toggle-bar"></span>
           <span class="navbar__toggle-bar"></span>
           <span class="navbar__toggle-bar"></span>
