@@ -164,6 +164,12 @@
 
 /* ======================== SMALL MOBILE (≤ 480px) ======================== */
 @media (max-width: 480px) {
+  /* Smaller floor so the longest typewriter phrase ("Performance Optimizer")
+     fits on one line without being clipped (see .hero__title-wrapper). */
+  .hero__title-wrapper {
+    font-size: clamp(0.9rem, 4.2vw, 1.8rem);
+  }
+
   .about__card {
     padding: 1.5rem;
   }

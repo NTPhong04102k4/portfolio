@@ -28,6 +28,7 @@
   top: 10%;
   left: -10%;
   animation: float-orb 8s ease-in-out infinite;
+  will-change: transform;
   z-index: 0;
 }
 
@@ -41,6 +42,7 @@
   bottom: 10%;
   right: -5%;
   animation: float-orb 10s ease-in-out infinite reverse;
+  will-change: transform;
   z-index: 0;
 }
 
@@ -78,6 +80,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  /* The typewriter text length changes every keystroke; without this it can
+     cross the container width mid-phrase and wrap to a 2nd line, then
+     un-wrap on the next character — a visible layout jump on narrow
+     screens. Keep it on one line and let the rare longest phrase clip
+     (contained by .hero's overflow: hidden) instead of reflowing. */
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .hero__typewriter {
