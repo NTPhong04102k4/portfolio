@@ -95,7 +95,9 @@ export const REVEAL_STAGGER_STEP = 0.08; // seconds between siblings
 export const REVEAL_STAGGER_MAX = 5;     // cap: 5 × 0.08s = 0.4s max delay
 
 // ======================== CONTACT ========================
-export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// WHATWG HTML "valid email address" pattern, tightened to require a TLD (a@b → invalid)
+export const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
 export const FORM_MESSAGES = {
   required: "Vui lòng nhập thông tin này.",
