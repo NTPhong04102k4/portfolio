@@ -12,7 +12,9 @@ export function initSmoothScroll() {
 
   $$(SELECTORS.anchorLinks).forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const target = $(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (!href || href.length < 2) return; // bare "#" — querySelector would throw
+      const target = $(href);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior });
