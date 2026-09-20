@@ -49,3 +49,13 @@
   opacity: 1;
   transform: translate(0, 0);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

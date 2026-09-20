@@ -83,7 +83,7 @@ export const HERO_OBSERVER_OPTIONS = {
 };
 
 // ======================== LOADER ========================
-export const LOADER_DELAY = 800;
+export const LOADER_DELAY = 300;
 
 // ======================== REVEAL ========================
 export const REVEAL_STAGGER_STEP = 0.1;

@@ -23,15 +23,20 @@
   }
 }
 
-/* ======================== MOBILE (≤ 768px) ======================== */
-@media (max-width: 768px) {
+/* ======================== NAV COLLAPSE (≤ 900px) ========================
+   6 Vietnamese nav labels + logo + theme toggle don't reliably fit on one
+   line below ~960px, so the hamburger breakpoint is raised above the
+   768px content breakpoint to avoid a wrapped/overlapping desktop navbar
+   on tablets and small laptops. */
+@media (max-width: 900px) {
   .navbar__menu {
     position: fixed;
     top: 0;
     right: -100%;
     width: 75%;
     max-width: 320px;
-    height: 100vh;
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
     background: var(--mobile-menu-bg);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -57,7 +62,10 @@
   .navbar__toggle {
     display: flex;
   }
+}
 
+/* ======================== MOBILE (≤ 768px) ======================== */
+@media (max-width: 768px) {
   .projects__grid {
     grid-template-columns: 1fr;
   }
@@ -70,9 +78,25 @@
     grid-template-columns: 1fr;
   }
 
+  .timeline {
+    padding-left: 2.75rem;
+  }
+
+  .timeline__card {
+    padding: 1.5rem;
+  }
+
   .hero__cta {
     flex-direction: column;
     align-items: center;
+  }
+
+  /* 3 stacked CTA buttons make hero content taller than the viewport on
+     most phones, pushing .hero__socials down into the space the absolutely
+     positioned scroll indicator sits in — they visibly overlap. Drop the
+     indicator on mobile rather than fight for the same few pixels. */
+  .hero__scroll-indicator {
+    display: none;
   }
 
   .footer__content {

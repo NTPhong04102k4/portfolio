@@ -15,11 +15,19 @@ export function initLoader(onReady) {
 
   document.body.style.overflow = 'hidden';
 
-  window.addEventListener('load', () => {
+  const reveal = () => {
     setTimeout(() => {
       loader.classList.add('hidden');
       document.body.style.overflow = '';
       if (typeof onReady === 'function') onReady();
     }, LOADER_DELAY);
-  });
+  };
+
+  // All markup is already rendered synchronously by main.js before this runs,
+  // so DOMContentLoaded is enough — no need to wait for `load` (fonts/images).
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', reveal, { once: true });
+  } else {
+    reveal();
+  }
 }

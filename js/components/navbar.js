@@ -2,7 +2,7 @@
    COMPONENT — Navbar
    Scroll effect, mobile menu, active section tracking
    ======================================================== */
-import { $, $$, createBackdrop } from '../utils.js';
+import { $, $$, createBackdrop, createScrollSentinel } from '../utils.js';
 import { SELECTORS, SCROLL_CONFIG, NAV_OBSERVER_OPTIONS } from '../constants.js';
 
 /**
@@ -16,11 +16,14 @@ export function initNavbar() {
 
   if (!navbar || !navToggle || !navMenu) return;
 
-  // ---- Scroll effect ----
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    navbar.classList.toggle('scrolled', currentScroll > SCROLL_CONFIG.scrolledThreshold);
+  // ---- Scroll effect (IntersectionObserver instead of a scroll listener) ----
+  const scrolledSentinel = createScrollSentinel(SCROLL_CONFIG.scrolledThreshold);
+  const scrolledObserver = new IntersectionObserver(([entry]) => {
+    // Same approach as back-to-top: the sentinel spans [0, threshold], so
+    // once its bottom edge scrolls above the viewport we've passed it.
+    navbar.classList.toggle('scrolled', entry.boundingClientRect.bottom < 0);
   });
+  scrolledObserver.observe(scrolledSentinel);
 
   // ---- Mobile menu ----
   const backdrop = createBackdrop();

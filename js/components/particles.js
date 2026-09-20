@@ -1,18 +1,22 @@
 /* ========================================================
    COMPONENT — Particle Network (Hero Canvas)
    ======================================================== */
-import { $ } from '../utils.js';
+import { $, debounce, prefersReducedMotion } from '../utils.js';
 import { SELECTORS, PARTICLE_CONFIG, HERO_OBSERVER_OPTIONS } from '../constants.js';
 
 /**
  * Initialise the interactive particle network on the hero canvas.
+ * Skipped entirely for users who prefer reduced motion.
  */
 export function initParticles() {
   const canvas = $(SELECTORS.heroCanvas);
-  if (!canvas) return;
+  if (!canvas || prefersReducedMotion()) return;
 
   const ctx = canvas.getContext('2d');
   const cfg = PARTICLE_CONFIG;
+  // Halve the density budget on narrow (mobile) viewports to keep the
+  // animation cheap on lower-power devices.
+  const maxCount = window.innerWidth < 768 ? Math.round(cfg.maxCount / 2) : cfg.maxCount;
   let particles = [];
   let mouse = { x: null, y: null };
   let animationId = null;
@@ -24,7 +28,7 @@ export function initParticles() {
   }
 
   resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', debounce(resizeCanvas, 200));
 
   // ---- Mouse tracking ----
   canvas.addEventListener('mousemove', (e) => {
@@ -83,7 +87,7 @@ export function initParticles() {
   function createParticles() {
     const count = Math.min(
       Math.floor((canvas.width * canvas.height) / cfg.densityFactor),
-      cfg.maxCount,
+      maxCount,
     );
     particles = [];
     for (let i = 0; i < count; i++) {
@@ -127,8 +131,8 @@ export function initParticles() {
   createParticles();
   animate();
 
-  // Reinit on resize
-  window.addEventListener('resize', createParticles);
+  // Reinit on resize (debounced — avoids re-seeding on every resize tick)
+  window.addEventListener('resize', debounce(createParticles, 200));
 
   // Pause when hero is not visible
   const heroSection = $(SELECTORS.heroSection);
