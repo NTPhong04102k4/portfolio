@@ -3,13 +3,13 @@
   position: relative;
   max-width: 800px;
   margin: 0 auto;
-  padding-left: 3rem;
+  padding-left: var(--timeline-pad);
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 15px;
+  left: var(--timeline-line);
   top: 0;
   bottom: 0;
   width: 2px;
@@ -27,7 +27,8 @@
 
 .timeline__dot {
   position: absolute;
-  left: -2.35rem;
+  /* centre the 14px dot on the 2px line, whatever the padding is */
+  left: calc(var(--timeline-line) + 1px - 7px - var(--timeline-pad));
   top: 1.5rem;
   width: 14px;
   height: 14px;
@@ -44,6 +45,11 @@
   border-radius: 50%;
   border: 2px solid rgba(108, 99, 255, 0.3);
   animation: pulse-ring 2s ease-in-out infinite;
+  /* Promote each ring to its own compositor layer so it scales/fades on
+     the GPU instead of repainting alongside the glass-card's backdrop
+     blur behind it — this is what was causing visible jank with several
+     of these running at once down the timeline. */
+  will-change: transform, opacity;
 }
 
 .timeline__card {

@@ -79,7 +79,7 @@
   }
 
   .timeline {
-    padding-left: 2.75rem;
+    --timeline-pad: 2.75rem;
   }
 
   .timeline__card {
@@ -116,7 +116,7 @@
   }
 
   .timeline {
-    padding-left: 2.5rem;
+    --timeline-pad: 2.5rem;
   }
 
   .contact__form-card {
