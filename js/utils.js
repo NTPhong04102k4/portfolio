@@ -45,16 +45,6 @@ export function createBackdrop(className = 'navbar__backdrop') {
 }
 
 /**
- * Inject a <style> block into <head>
- * @param {string} css — raw CSS string
- */
-export function injectStyles(css) {
-  const style = document.createElement('style');
-  style.textContent = css;
-  document.head.appendChild(style);
-}
-
-/**
  * Create an invisible sentinel spanning from the top of the document down to
  * `offset`px, used to observe scroll-position thresholds via
  * IntersectionObserver instead of a `scroll` event listener. Spanning the

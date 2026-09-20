@@ -8,8 +8,7 @@
    ======================================================== */
 
 import { $ } from "./utils.js";
-import { injectStyles } from "./utils.js";
-import { FADE_IN_UP_KEYFRAMES, SELECTORS } from "./constants.js";
+import { SELECTORS } from "./constants.js";
 
 // Templates (HTML rendering)
 import { renderLoader } from "./templates/loader.js";
@@ -54,9 +53,6 @@ app.innerHTML = [
 
 // Theme (apply ASAP to prevent flash)
 initThemeToggle();
-
-// Inject dynamic keyframes
-injectStyles(FADE_IN_UP_KEYFRAMES);
 
 // Loader — triggers reveal animations when done
 initLoader(initRevealAnimations);

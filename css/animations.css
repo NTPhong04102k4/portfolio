@@ -31,25 +31,44 @@
   50%      { transform: scale(1.5); opacity: 0; }
 }
 
-/* ======================== REVEAL ANIMATIONS ======================== */
+/* ======================== PROJECT FILTER ======================== */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================== REVEAL ANIMATIONS ========================
+   Lifecycle (see components/reveal.js):
+     .reveal-*            → hidden, waiting for the viewport
+     .reveal-*.revealed   → transitioning in (delay via --reveal-delay)
+     (classes removed)    → done; element returns to its natural styles
+   Removing the classes after the transition matters: otherwise the 0.8s
+   reveal transition + stagger delay would keep overriding the much
+   snappier hover transitions on .glass-card, .btn, etc. */
 .reveal-up,
 .reveal-left,
 .reveal-right {
   opacity: 0;
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  will-change: opacity, transform;
 }
 
-.reveal-up    { transform: translateY(40px); }
-.reveal-left  { transform: translateX(-40px); }
-.reveal-right { transform: translateX(40px); }
+.reveal-up    { transform: translateY(32px); }
+.reveal-left  { transform: translateX(-32px); }
+.reveal-right { transform: translateX(32px); }
 
 .reveal-up.revealed,
 .reveal-left.revealed,
 .reveal-right.revealed {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: none;
+  transition:
+    opacity 0.7s var(--ease-out) var(--reveal-delay, 0s),
+    transform 0.7s var(--ease-out) var(--reveal-delay, 0s);
 }
 
+/* ======================== REDUCED MOTION ========================
+   Kill every decorative loop, not just the reveal — the orbs, blob,
+   pulse ring and cursor blink are all continuous motion. */
 @media (prefers-reduced-motion: reduce) {
   .reveal-up,
   .reveal-left,
@@ -57,5 +76,19 @@
     opacity: 1;
     transform: none;
     transition: none;
+    will-change: auto;
+  }
+
+  .hero::before,
+  .hero::after,
+  .about__image-decoration,
+  .timeline__dot::before,
+  .hero__scroll-wheel,
+  .hero__cursor {
+    animation: none !important;
+  }
+
+  .hero__cursor {
+    opacity: 1;
   }
 }
