@@ -13,8 +13,28 @@
 
 html {
   scroll-padding-top: 80px;
+  /* Clip horizontal overflow at the root. `overflow-x: hidden` on <body>
+     alone is not enough on Chrome Android: any element poking past the
+     right edge (a decorative blob, a .reveal-right waiting off-screen)
+     makes Chrome widen the *layout viewport* to fit it, so every
+     `left: 0; right: 0` fixed element (navbar, drawer) grows wider than
+     the screen and its right edge — the hamburger — ends up off-screen.
+     `clip` (not `hidden`) so <html> doesn't become a scroll container. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Locking body overflow (drawer open, loader) would otherwise drop the
+   classic scrollbar on Windows and widen the viewport by ~15px — the whole
+   page reflows and shifts sideways the instant the menu opens. Only for
+   pointer devices: on Android Chrome the gutter is reserved even with overlay
+   scrollbars, leaving a 15px dead strip and pushing the navbar's right edge
+   (hamburger) off-screen. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scrollbar-gutter: stable;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -58,6 +78,13 @@ button {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
+}
+
+/* Keyboard focus ring — hidden for mouse clicks via :focus-visible */
+:is(a, button, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 input,
@@ -134,7 +161,9 @@ textarea {
   border-radius: 50px;
   font-weight: 600;
   font-size: var(--fs-sm);
-  transition: all var(--duration) var(--ease);
+  transition: transform var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease),
+              background var(--duration) var(--ease);
   position: relative;
   overflow: hidden;
   letter-spacing: 0.02em;
@@ -149,26 +178,6 @@ textarea {
 .btn--primary:hover {
   box-shadow: 0 6px 30px rgba(108, 99, 255, 0.5);
   transform: translateY(-2px);
-}
-
-.btn--primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gradient-hover);
-  opacity: 0;
-  transition: opacity var(--duration) var(--ease);
-  border-radius: inherit;
-}
-
-.btn--primary:hover::before {
-  /* opacity: 1; */
-}
-
-.btn--primary i,
-.btn--primary span {
-  position: relative;
-  z-index: 1;
 }
 
 .btn--outline {
