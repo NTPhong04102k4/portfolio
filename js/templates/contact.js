@@ -41,12 +41,12 @@ export function renderContact() {
         <form id="contact-form" class="contact__form reveal-right" action="${FORM_ACTION}" method="POST">
           <div class="glass-card contact__form-card">
             <div class="form-group">
-              <input type="text" id="form-name" name="name" required placeholder=" " />
+              <input type="text" id="form-name" name="name" required placeholder=" " autocomplete="name" />
               <label for="form-name">Họ tên</label>
               <span class="form-group__line"></span>
             </div>
             <div class="form-group">
-              <input type="email" id="form-email" name="email" required placeholder=" " />
+              <input type="email" id="form-email" name="email" required placeholder=" " autocomplete="email" />
               <label for="form-email">Email</label>
               <span class="form-group__line"></span>
             </div>
