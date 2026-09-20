@@ -65,20 +65,21 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+  /* Fade only. The button keeps its 48×48 box and position at all times;
+     no transform, so nothing about its geometry ever changes. */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
-  transition: all var(--duration) var(--ease);
+  transition: opacity var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease),
+              visibility var(--duration);
   z-index: 100;
 }
 
 .back-to-top.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 .back-to-top:hover {
-  transform: translateY(-3px);
   box-shadow: 0 6px 30px rgba(108, 99, 255, 0.5);
 }

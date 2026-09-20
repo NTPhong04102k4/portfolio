@@ -34,7 +34,7 @@ export function renderAbout() {
       <div class="about__grid">
         <div class="about__image-wrapper reveal-left">
           <div class="about__image-frame">
-            <img src="${PERSONAL_INFO.avatarSrc}" alt="${PERSONAL_INFO.name}" class="about__image" loading="lazy" />
+            <img src="${PERSONAL_INFO.avatarSrc}" alt="${PERSONAL_INFO.name}" class="about__image" loading="lazy" width="892" height="1192" />
             <div class="about__image-overlay"></div>
           </div>
           <div class="about__image-decoration"></div>

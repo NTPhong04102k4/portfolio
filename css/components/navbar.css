@@ -5,19 +5,21 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1rem 0;
+  /* Constant height: animating padding on .scrolled re-laid-out the bar
+     (and everything under scroll-padding-top) on every threshold cross. */
+  padding: 0.75rem 0;
+  border-bottom: 1px solid transparent;
   transition: background var(--duration) var(--ease),
-              padding var(--duration) var(--ease),
-              box-shadow var(--duration) var(--ease);
+              box-shadow var(--duration) var(--ease),
+              border-color var(--duration) var(--ease);
 }
 
 .navbar.scrolled {
   background: var(--navbar-scrolled-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 0.6rem 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--navbar-scrolled-shadow);
-  border-bottom: 1px solid var(--clr-border);
+  border-bottom-color: var(--clr-border);
 }
 
 .navbar__container {
@@ -82,7 +84,8 @@
   font-weight: 500;
   color: var(--clr-text-muted);
   border-radius: 50px;
-  transition: all var(--duration) var(--ease);
+  transition: color var(--duration) var(--ease),
+              background var(--duration) var(--ease);
   position: relative;
 }
 
@@ -109,7 +112,7 @@
   height: 2px;
   background: var(--clr-text);
   border-radius: 2px;
-  transition: all 0.3s var(--ease);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
   transform-origin: center;
 }
 
@@ -134,7 +137,7 @@
   z-index: 999;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s var(--ease);
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
 }
 
 .navbar__backdrop.visible {

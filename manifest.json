@@ -1,0 +1,19 @@
+{
+  "name": "Nguyễn Thế Phong | Frontend Developer",
+  "short_name": "Phong Portfolio",
+  "description": "Portfolio của Nguyễn Thế Phong – Frontend Developer chuyên React, TypeScript, TanStack.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0a0a1a",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "assets/images/a.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

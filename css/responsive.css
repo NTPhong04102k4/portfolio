@@ -23,28 +23,41 @@
   }
 }
 
-/* ======================== MOBILE (≤ 768px) ======================== */
-@media (max-width: 768px) {
+/* ======================== NAV COLLAPSE (≤ 900px) ========================
+   6 Vietnamese nav labels + logo + theme toggle don't reliably fit on one
+   line below ~960px, so the hamburger breakpoint is raised above the
+   768px content breakpoint to avoid a wrapped/overlapping desktop navbar
+   on tablets and small laptops. */
+@media (max-width: 900px) {
+  /* Fade only — no slide, no transform, nothing that moves horizontally.
+     The panel is already at its final position and size while hidden; the
+     only animated property is opacity. The background is 97% opaque, so a
+     backdrop blur would be invisible and just re-blur a 100dvh region. */
   .navbar__menu {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 75%;
-    max-width: 320px;
-    height: 100vh;
+    right: 0;
+    width: min(75%, 320px);
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
     background: var(--mobile-menu-bg);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
     flex-direction: column;
     align-items: flex-start;
     padding: 6rem 2rem 2rem;
     gap: 0.25rem;
-    transition: right 0.4s var(--ease);
     border-left: 1px solid var(--clr-border);
+    opacity: 0;
+    visibility: hidden;
+    /* visibility flips after the fade-out finishes (0.3s delay) */
+    transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+    will-change: opacity;
+    overscroll-behavior: contain;
   }
 
   .navbar__menu.open {
-    right: 0;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s var(--ease), visibility 0s;
   }
 
   .navbar__link {
@@ -54,10 +67,58 @@
     border-radius: var(--radius-sm);
   }
 
+  /* Links fade in one after another once the panel is visible — opacity
+     only, so nothing shifts. */
+  .navbar__menu li {
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .navbar__menu.open li {
+    opacity: 1;
+  }
+
+  .navbar__menu.open li:nth-child(1) { transition-delay: 0.1s; }
+  .navbar__menu.open li:nth-child(2) { transition-delay: 0.15s; }
+  .navbar__menu.open li:nth-child(3) { transition-delay: 0.2s; }
+  .navbar__menu.open li:nth-child(4) { transition-delay: 0.25s; }
+  .navbar__menu.open li:nth-child(5) { transition-delay: 0.3s; }
+  .navbar__menu.open li:nth-child(6) { transition-delay: 0.35s; }
+
+  /* Keep theme toggle + hamburger above the drawer so the toggle isn't
+     buried under the panel while the menu is open. */
+  .navbar__actions {
+    position: relative;
+    z-index: 1001;
+  }
+
   .navbar__toggle {
     display: flex;
   }
+}
 
+/* ======================== TOUCH DEVICES ========================
+   No hover → the project overlay (Swagger / GitHub links) would be
+   unreachable. Keep the image visible and float the actions at the bottom. */
+@media (hover: none) {
+  .projects__card-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(10, 10, 26, 0.75), transparent 60%);
+    align-items: flex-end;
+    padding-bottom: 1rem;
+  }
+
+  .projects__card-link {
+    transform: none;
+  }
+
+  .projects__card .projects__card-image img {
+    transform: none; /* no hover zoom to get stuck on after a tap */
+  }
+}
+
+/* ======================== MOBILE (≤ 768px) ======================== */
+@media (max-width: 768px) {
   .projects__grid {
     grid-template-columns: 1fr;
   }
@@ -70,9 +131,25 @@
     grid-template-columns: 1fr;
   }
 
+  .timeline {
+    --timeline-pad: 2.75rem;
+  }
+
+  .timeline__card {
+    padding: 1.5rem;
+  }
+
   .hero__cta {
     flex-direction: column;
     align-items: center;
+  }
+
+  /* 3 stacked CTA buttons make hero content taller than the viewport on
+     most phones, pushing .hero__socials down into the space the absolutely
+     positioned scroll indicator sits in — they visibly overlap. Drop the
+     indicator on mobile rather than fight for the same few pixels. */
+  .hero__scroll-indicator {
+    display: none;
   }
 
   .footer__content {
@@ -87,12 +164,18 @@
 
 /* ======================== SMALL MOBILE (≤ 480px) ======================== */
 @media (max-width: 480px) {
+  /* Smaller floor so the longest typewriter phrase ("Performance Optimizer")
+     fits on one line without being clipped (see .hero__title-wrapper). */
+  .hero__title-wrapper {
+    font-size: clamp(0.9rem, 4.2vw, 1.8rem);
+  }
+
   .about__card {
     padding: 1.5rem;
   }
 
   .timeline {
-    padding-left: 2.5rem;
+    --timeline-pad: 2.5rem;
   }
 
   .contact__form-card {
