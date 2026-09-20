@@ -1,7 +1,34 @@
 /* ========================================================
    TEMPLATE — Contact Section
    ======================================================== */
-import { CONTACT_INFO, FORM_ACTION } from '../constants.js';
+import { CONTACT_INFO, FORM_ACTION, FORM_FIELDS } from '../constants.js';
+
+/**
+ * Render one Material 3 outlined text field.
+ * The outline is split into leading / notch / trailing pieces so the
+ * floated label can "cut" the border over any background (glass card).
+ * @param {{id:string,name:string,label:string,type?:string,textarea?:boolean,autocomplete?:string,rows?:number}} f
+ * @returns {string} HTML string
+ */
+function renderField(f) {
+  const common = `id="${f.id}" name="${f.name}" required placeholder=" " aria-describedby="${f.id}-hint"`;
+  const control = f.textarea
+    ? `<textarea ${common} rows="${f.rows ?? 5}"></textarea>`
+    : `<input type="${f.type ?? 'text'}" ${common}${f.autocomplete ? ` autocomplete="${f.autocomplete}"` : ''} />`;
+
+  return `
+            <div class="form-group">
+              <div class="form-group__field">
+                ${control}
+                <div class="form-group__outline" aria-hidden="true">
+                  <span class="form-group__outline-leading"></span>
+                  <span class="form-group__outline-notch"><label for="${f.id}">${f.label}</label></span>
+                  <span class="form-group__outline-trailing"></span>
+                </div>
+              </div>
+              <p class="form-group__hint" id="${f.id}-hint" aria-live="polite"></p>
+            </div>`;
+}
 
 /**
  * Render the contact section with info card and form.
@@ -23,6 +50,8 @@ export function renderContact() {
             </div>`;
   }).join('\n');
 
+  const fields = FORM_FIELDS.map(renderField).join('\n');
+
   return `
   <section id="contact" class="section contact">
     <div class="container">
@@ -38,28 +67,9 @@ export function renderContact() {
             ${infoItems}
           </div>
         </div>
-        <form id="contact-form" class="contact__form reveal-right" action="${FORM_ACTION}" method="POST">
+        <form id="contact-form" class="contact__form reveal-right" action="${FORM_ACTION}" method="POST" novalidate>
           <div class="glass-card contact__form-card">
-            <div class="form-group">
-              <input type="text" id="form-name" name="name" required placeholder=" " autocomplete="name" />
-              <label for="form-name">Họ tên</label>
-              <span class="form-group__line"></span>
-            </div>
-            <div class="form-group">
-              <input type="email" id="form-email" name="email" required placeholder=" " autocomplete="email" />
-              <label for="form-email">Email</label>
-              <span class="form-group__line"></span>
-            </div>
-            <div class="form-group">
-              <input type="text" id="form-subject" name="subject" required placeholder=" " />
-              <label for="form-subject">Tiêu đề</label>
-              <span class="form-group__line"></span>
-            </div>
-            <div class="form-group">
-              <textarea id="form-message" name="message" rows="5" required placeholder=" "></textarea>
-              <label for="form-message">Nội dung</label>
-              <span class="form-group__line"></span>
-            </div>
+            ${fields}
             <button type="submit" class="btn btn--primary contact__submit">
               <i class="fas fa-paper-plane"></i> Gửi tin nhắn
             </button>
