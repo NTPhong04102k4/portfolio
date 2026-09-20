@@ -14,7 +14,10 @@
   font-weight: 500;
   color: var(--clr-text-muted);
   border: 1px solid var(--clr-border);
-  transition: all var(--duration) var(--ease);
+  transition: color var(--duration) var(--ease),
+              border-color var(--duration) var(--ease),
+              background var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
 }
 
 .projects__filter:hover {
@@ -37,7 +40,6 @@
 
 .projects__card {
   overflow: hidden;
-  transition: all 0.5s var(--ease);
 }
 
 .projects__card.hidden {
@@ -48,6 +50,29 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16/10;
+  /* Fallback surface so a missing/slow image doesn't leave a hole */
+  background:
+    linear-gradient(135deg, rgba(108, 99, 255, 0.25), rgba(0, 212, 170, 0.15)),
+    var(--clr-bg-light);
+}
+
+/* Broken image (components/images.js adds the class): hide the alt text
+   and show a code icon instead. */
+.projects__card-image.is-missing img {
+  visibility: hidden;
+}
+
+.projects__card-image.is-missing::before {
+  content: '\f121'; /* fa-code */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .projects__card-image img {

@@ -28,6 +28,7 @@ import { initTypewriter } from "./components/typewriter.js";
 import { initParticles } from "./components/particles.js";
 import { initRevealAnimations } from "./components/reveal.js";
 import { initProjectsFilter } from "./components/filter.js";
+import { initImageFallbacks } from "./components/images.js";
 import { initContactForm } from "./components/contact.js";
 import { initSmoothScroll, initBackToTop } from "./components/scroll.js";
 import { initThemeToggle } from "./components/theme.js";
@@ -66,6 +67,7 @@ initParticles();
 
 // Interactive features
 initProjectsFilter();
+initImageFallbacks();
 initContactForm();
 initSmoothScroll();
 initBackToTop();

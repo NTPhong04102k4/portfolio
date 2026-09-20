@@ -97,6 +97,26 @@
   }
 }
 
+/* ======================== TOUCH DEVICES ========================
+   No hover → the project overlay (Swagger / GitHub links) would be
+   unreachable. Keep the image visible and float the actions at the bottom. */
+@media (hover: none) {
+  .projects__card-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(10, 10, 26, 0.75), transparent 60%);
+    align-items: flex-end;
+    padding-bottom: 1rem;
+  }
+
+  .projects__card-link {
+    transform: none;
+  }
+
+  .projects__card .projects__card-image img {
+    transform: none; /* no hover zoom to get stuck on after a tap */
+  }
+}
+
 /* ======================== MOBILE (≤ 768px) ======================== */
 @media (max-width: 768px) {
   .projects__grid {
