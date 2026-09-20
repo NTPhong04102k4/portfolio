@@ -120,70 +120,187 @@
   color: var(--clr-primary);
 }
 
-/* Form */
+/* ======================== FORM — Material 3 outlined text field ========================
+   Anatomy: control (input/textarea) + notched outline + supporting text.
+   The outline is three pieces (leading | notch | trailing) so the label can
+   float up and "cut" the border without needing a solid background behind
+   it — the card is translucent glass, so a plain label background wouldn't
+   match. Sizes follow the M3 spec: 56px container, 16px inset, 4px radius. */
 .contact__form-card {
   padding: 2.5rem;
 }
 
 .form-group {
-  position: relative;
-  margin-bottom: 2rem;
+  --field-height: 56px;
+  --field-inset: 1rem;
+  --field-radius: 4px;
+  --outline-w: 1px;
+  --outline-clr: var(--form-outline);
+  --label-clr: var(--clr-text-muted);
+  margin-bottom: 0.75rem;
 }
 
+.form-group__field {
+  position: relative;
+}
+
+/* ---- control ---- */
 .form-group input,
 .form-group textarea {
+  display: block;
   width: 100%;
-  padding: 1rem 0 0.5rem;
+  height: var(--field-height);
+  padding: 0 var(--field-inset);
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--form-border);
+  border-radius: var(--field-radius);
   color: var(--clr-text);
   font-size: var(--fs-body);
-  transition: border-color var(--duration) var(--ease);
+  line-height: 1.5;
+  caret-color: var(--clr-primary);
 }
 
 .form-group textarea {
+  height: auto;
+  min-height: 140px;
+  padding: var(--field-inset);
   resize: vertical;
-  min-height: 100px;
 }
 
-.form-group label {
+/* The 2px primary outline is the focus indicator — no extra ring */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: none;
+}
+
+/* Chrome autofill paints its own background — keep it inside the outline
+   and readable in both themes */
+.form-group input:-webkit-autofill {
+  -webkit-text-fill-color: var(--clr-text);
+  box-shadow: 0 0 0 1000px var(--clr-bg-light) inset;
+}
+
+/* ---- notched outline ---- */
+.form-group__outline {
   position: absolute;
-  top: 1rem;
-  left: 0;
-  font-size: var(--fs-body);
-  color: var(--clr-text-dim);
+  inset: 0;
+  display: flex;
   pointer-events: none;
-  transition: all var(--duration) var(--ease);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--clr-primary);
+.form-group__outline-leading,
+.form-group__outline-notch,
+.form-group__outline-trailing {
+  box-sizing: border-box;
+  border: var(--outline-w) solid var(--outline-clr);
+  transition: border-color var(--duration) var(--ease),
+              border-width 0.15s var(--ease);
 }
 
-.form-group input:focus ~ label,
-.form-group input:not(:placeholder-shown) ~ label,
-.form-group textarea:focus ~ label,
-.form-group textarea:not(:placeholder-shown) ~ label {
-  top: -0.5rem;
+.form-group__outline-leading {
+  width: calc(var(--field-inset) - 4px);
+  border-right: none;
+  border-radius: var(--field-radius) 0 0 var(--field-radius);
+}
+
+.form-group__outline-notch {
+  flex: 0 0 auto;
+  max-width: calc(100% - var(--field-inset) * 2);
+  padding: 0 4px;
+  border-left: none;
+  border-right: none;
+}
+
+.form-group__outline-trailing {
+  flex: 1;
+  border-left: none;
+  border-radius: 0 var(--field-radius) var(--field-radius) 0;
+}
+
+/* ---- label ---- */
+.form-group label {
+  display: block;
+  max-width: 100%;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--label-clr);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* resting: vertically centred in the 56px container (56 − 24) / 2 */
+  transform: translateY(calc((var(--field-height) - 1.5em) / 2));
+  transform-origin: left top;
+  transition: transform var(--duration) var(--ease),
+              font-size var(--duration) var(--ease),
+              color var(--duration) var(--ease);
+}
+
+/* floated: shrink to 12px and sit centred on the top border */
+.form-group input:focus ~ .form-group__outline label,
+.form-group input:not(:placeholder-shown) ~ .form-group__outline label,
+.form-group input:-webkit-autofill ~ .form-group__outline label,
+.form-group textarea:focus ~ .form-group__outline label,
+.form-group textarea:not(:placeholder-shown) ~ .form-group__outline label {
   font-size: var(--fs-xs);
-  color: var(--clr-primary);
+  transform: translateY(-50%);
 }
 
-.form-group__line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gradient);
-  transition: width 0.4s var(--ease);
+/* open the notch so the label cuts the outline */
+.form-group input:focus ~ .form-group__outline .form-group__outline-notch,
+.form-group input:not(:placeholder-shown) ~ .form-group__outline .form-group__outline-notch,
+.form-group input:-webkit-autofill ~ .form-group__outline .form-group__outline-notch,
+.form-group textarea:focus ~ .form-group__outline .form-group__outline-notch,
+.form-group textarea:not(:placeholder-shown) ~ .form-group__outline .form-group__outline-notch {
+  border-top-color: transparent;
 }
 
-.form-group input:focus ~ .form-group__line,
-.form-group textarea:focus ~ .form-group__line {
-  width: 100%;
+/* ---- states ---- */
+@media (hover: hover) {
+  .form-group:hover {
+    --outline-clr: var(--form-outline-hover);
+    --label-clr: var(--clr-text);
+  }
+}
+
+.form-group:focus-within {
+  --outline-w: 2px;
+  --outline-clr: var(--clr-primary);
+  --label-clr: var(--clr-primary);
+}
+
+.form-group--error,
+.form-group--error:hover,
+.form-group--error:focus-within {
+  --outline-clr: var(--clr-error);
+  --label-clr: var(--clr-error);
+}
+
+.form-group--error input,
+.form-group--error textarea {
+  caret-color: var(--clr-error);
+}
+
+/* ---- supporting text ---- */
+.form-group__hint {
+  min-height: 1.125rem;          /* reserve space so errors don't shift layout */
+  padding: 0.25rem var(--field-inset) 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--clr-text-muted);
+  transition: color var(--duration) var(--ease);
+}
+
+.form-group--error .form-group__hint {
+  color: var(--clr-error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-group label,
+  .form-group__outline-leading,
+  .form-group__outline-notch,
+  .form-group__outline-trailing {
+    transition: none;
+  }
 }
 
 .contact__submit {

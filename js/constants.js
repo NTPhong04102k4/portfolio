@@ -98,9 +98,17 @@ export const REVEAL_STAGGER_MAX = 5;     // cap: 5 × 0.08s = 0.4s max delay
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const FORM_MESSAGES = {
-  emptyFields: "Vui lòng điền đầy đủ thông tin.",
+  required: "Vui lòng nhập thông tin này.",
   invalidEmail: "Email không hợp lệ.",
 };
+
+/** Contact form fields — rendered as Material 3 outlined text fields */
+export const FORM_FIELDS = [
+  { id: "form-name",    name: "name",    label: "Họ tên",   autocomplete: "name" },
+  { id: "form-email",   name: "email",   label: "Email",    type: "email", autocomplete: "email" },
+  { id: "form-subject", name: "subject", label: "Tiêu đề" },
+  { id: "form-message", name: "message", label: "Nội dung", textarea: true, rows: 5 },
+];
 
 export const CONTACT_EMAIL = "phongnguyenphong267@gmail.com";
 
