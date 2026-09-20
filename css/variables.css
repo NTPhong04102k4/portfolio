@@ -55,8 +55,10 @@ html[data-theme="dark"] {
   --project-tag-bg:    rgba(0, 212, 170, 0.1);
   --project-tag-border:rgba(0, 212, 170, 0.2);
 
-  /* Form */
-  --form-border:     rgba(255, 255, 255, 0.08);
+  /* Form — M3 outlined text field */
+  --form-outline:        rgba(255, 255, 255, 0.28);
+  --form-outline-hover:  rgba(255, 255, 255, 0.6);
+  --clr-error:           #f2a3ab;
 
   /* Backdrop */
   --backdrop-bg:     rgba(0, 0, 0, 0.5);
@@ -108,8 +110,10 @@ html[data-theme="light"] {
   --project-tag-bg:    rgba(0, 184, 148, 0.08);
   --project-tag-border:rgba(0, 184, 148, 0.18);
 
-  /* Form */
-  --form-border:     rgba(0, 0, 0, 0.1);
+  /* Form — M3 outlined text field */
+  --form-outline:        rgba(0, 0, 0, 0.32);
+  --form-outline-hover:  rgba(0, 0, 0, 0.7);
+  --clr-error:           #b3261e;
 
   /* Backdrop */
   --backdrop-bg:     rgba(0, 0, 0, 0.3);
