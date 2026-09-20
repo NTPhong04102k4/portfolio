@@ -15,6 +15,10 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 3/4;
+  /* Scope the overlay's mix-blend-mode to this box. Without it Chrome
+     blends against the blurred, rotating decoration blob underneath and
+     paints a solid block over the top half of the photo. */
+  isolation: isolate;
 }
 
 .about__image {
@@ -44,30 +48,22 @@
   filter: blur(12px);
   animation: blob-morph 9s ease-in-out infinite alternate;
   opacity: 0.75;
-  transition: all 0.5s var(--ease);
+  transition: opacity 0.5s var(--ease), filter 0.5s var(--ease);
 }
 
 .about__image-wrapper:hover .about__image-decoration {
   opacity: 0.95;
   filter: blur(8px);
-  transform: scale(1.05);
 }
 
+/* Border-radius morph only. The old version also rotated the blob 180°:
+   a 3:4 rectangle turned sideways sticks ~50px past the wrapper and off
+   the right edge of a phone screen (see html { overflow-x: clip }). */
 @keyframes blob-morph {
-  0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    transform: rotate(0deg);
-  }
-  33% {
-    border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%;
-  }
-  66% {
-    border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%;
-  }
-  100% {
-    border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
-    transform: rotate(180deg);
-  }
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  33%  { border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%; }
+  66%  { border-radius: 70% 30% 50% 50% / 30% 40% 60% 70%; }
+  100% { border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; }
 }
 
 .about__card {

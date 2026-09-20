@@ -21,6 +21,7 @@ export const SELECTORS = {
   formMessage: "#form-message",
   filterBtns: ".projects__filter",
   projectCards: ".projects__card",
+  projectImages: ".projects__card-image img",
   sections: ".section, .hero",
   revealElements: ".reveal-up, .reveal-left, .reveal-right",
   anchorLinks: 'a[href^="#"]',
@@ -47,6 +48,7 @@ export const TYPEWRITER_CONFIG = {
 // ======================== PARTICLES ========================
 export const PARTICLE_CONFIG = {
   maxCount: 100,
+  maxDpr: 2, // cap devicePixelRatio for the canvas backing store
   densityFactor: 12000,
   connectionDistance: 150,
   mouseRadius: 120,
@@ -67,6 +69,9 @@ export const SCROLL_CONFIG = {
   backToTopThreshold: 500,
 };
 
+// Must match the hamburger breakpoint in css/responsive.css
+export const NAV_COLLAPSE_QUERY = "(max-width: 900px)";
+
 // ======================== OBSERVER OPTIONS ========================
 export const NAV_OBSERVER_OPTIONS = {
   threshold: 0.3,
@@ -83,11 +88,11 @@ export const HERO_OBSERVER_OPTIONS = {
 };
 
 // ======================== LOADER ========================
-export const LOADER_DELAY = 800;
+export const LOADER_DELAY = 300;
 
 // ======================== REVEAL ========================
-export const REVEAL_STAGGER_STEP = 0.1;
-export const REVEAL_STAGGER_GROUP = 4;
+export const REVEAL_STAGGER_STEP = 0.08; // seconds between siblings
+export const REVEAL_STAGGER_MAX = 5;     // cap: 5 × 0.08s = 0.4s max delay
 
 // ======================== CONTACT ========================
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -99,13 +104,8 @@ export const FORM_MESSAGES = {
 
 export const CONTACT_EMAIL = "phongnguyenphong267@gmail.com";
 
-// ======================== ANIMATION ========================
-export const FADE_IN_UP_KEYFRAMES = `
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-`;
+// ======================== PROJECT FILTER ========================
+export const FILTER_ANIMATION = 'fade-in-up 0.45s var(--ease-out) both';
 
 // ======================== THEME ========================
 export const THEME_STORAGE_KEY = "portfolio-theme";

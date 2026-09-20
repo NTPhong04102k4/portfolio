@@ -2,8 +2,8 @@
    COMPONENT — Navbar
    Scroll effect, mobile menu, active section tracking
    ======================================================== */
-import { $, $$, createBackdrop } from '../utils.js';
-import { SELECTORS, SCROLL_CONFIG, NAV_OBSERVER_OPTIONS } from '../constants.js';
+import { $, $$, createBackdrop, createScrollSentinel } from '../utils.js';
+import { SELECTORS, SCROLL_CONFIG, NAV_OBSERVER_OPTIONS, NAV_COLLAPSE_QUERY } from '../constants.js';
 
 /**
  * Initialise all navbar behaviours.
@@ -16,34 +16,48 @@ export function initNavbar() {
 
   if (!navbar || !navToggle || !navMenu) return;
 
-  // ---- Scroll effect ----
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    navbar.classList.toggle('scrolled', currentScroll > SCROLL_CONFIG.scrolledThreshold);
+  // ---- Scroll effect (IntersectionObserver instead of a scroll listener) ----
+  const scrolledSentinel = createScrollSentinel(SCROLL_CONFIG.scrolledThreshold);
+  const scrolledObserver = new IntersectionObserver(([entry]) => {
+    // Same approach as back-to-top: the sentinel spans [0, threshold], so
+    // once its bottom edge scrolls above the viewport we've passed it.
+    navbar.classList.toggle('scrolled', entry.boundingClientRect.bottom < 0);
   });
+  scrolledObserver.observe(scrolledSentinel);
 
   // ---- Mobile menu ----
   const backdrop = createBackdrop();
 
-  function toggleMenu() {
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('open');
-    backdrop.classList.toggle('visible');
-    document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+  function setMenu(open) {
+    navToggle.classList.toggle('active', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navMenu.classList.toggle('open', open);
+    backdrop.classList.toggle('visible', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  function closeMenu() {
-    navToggle.classList.remove('active');
-    navMenu.classList.remove('open');
-    backdrop.classList.remove('visible');
-    document.body.style.overflow = '';
-  }
+  const isOpen = () => navMenu.classList.contains('open');
+  const closeMenu = () => setMenu(false);
 
-  navToggle.addEventListener('click', toggleMenu);
+  navToggle.addEventListener('click', () => setMenu(!isOpen()));
   backdrop.addEventListener('click', closeMenu);
 
   navLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) {
+      closeMenu();
+      navToggle.focus();
+    }
+  });
+
+  // If the viewport grows past the collapse breakpoint while the drawer is
+  // open, the drawer CSS goes away but body overflow / backdrop would stay.
+  const collapseQuery = window.matchMedia(NAV_COLLAPSE_QUERY);
+  collapseQuery.addEventListener('change', (e) => {
+    if (!e.matches) closeMenu();
   });
 
   // ---- Active section tracking ----

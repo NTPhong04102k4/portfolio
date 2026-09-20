@@ -43,7 +43,7 @@ function renderProjectCard(project) {
   return `
         <article class="glass-card projects__card reveal-up" data-category="${project.category}">
           <div class="projects__card-image">
-            <img src="${project.image}" alt="${project.alt}" loading="lazy" />
+            <img src="${project.image}" alt="${project.alt}" loading="lazy" width="640" height="400" />
             <div class="projects__card-overlay">
               <div class="projects__card-actions">
                 ${linksHtml.join('\n                ')}
@@ -70,7 +70,7 @@ function renderProjectCard(project) {
 export function renderProjects() {
   const filters = FILTER_BUTTONS.map(
     (btn) =>
-      `<button class="projects__filter${btn.active ? ' active' : ''}" data-filter="${btn.filter}">${btn.label}</button>`,
+      `<button class="projects__filter${btn.active ? ' active' : ''}" data-filter="${btn.filter}" aria-pressed="${btn.active ? 'true' : 'false'}">${btn.label}</button>`,
   ).join('\n        ');
 
   const cards = PROJECTS_DATA.map(renderProjectCard).join('\n');
