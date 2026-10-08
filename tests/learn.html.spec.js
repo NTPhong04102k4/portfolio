@@ -7,7 +7,7 @@ test.describe('HTML (cơ bản + nâng cao)', () => {
 
   test('cơ bản: lang, title, viewport, 1 h1, id duy nhất', async ({ page }) => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'vi');
-    await expect(page).toHaveTitle(/HTML CSS3 JS jQuery/);
+    await expect(page).toHaveTitle(/Học HTML, CSS3, JavaScript, jQuery/);
     await expect(page.locator('meta[name="viewport"]')).toHaveCount(1);
     await expect(page.locator('h1')).toHaveCount(1);
     const dupes = await page.evaluate(() => {

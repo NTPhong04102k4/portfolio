@@ -20,8 +20,10 @@
   <meta name="description" content="Portfolio của Nguyễn Thế Phong – Frontend Developer chuyên React, TypeScript, TanStack, CI/CD. Tối ưu hiệu suất UI & kiến trúc Frontend mở rộng." />
   <meta name="keywords" content="Nguyễn Thế Phong, Frontend Developer, React, TypeScript, Portfolio, Hà Nội" />
   <meta name="author" content="Nguyễn Thế Phong" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://portfolio-lazynerd.vercel.app/" />
+  <link rel="alternate" hreflang="vi" href="https://portfolio-lazynerd.vercel.app/" />
+  <link rel="alternate" hreflang="x-default" href="https://portfolio-lazynerd.vercel.app/" />
 
   <!-- Theme color for browser UI ( address bar, PWA splash) -->
   <meta name="theme-color" content="#0a0a1a" media="(prefers-color-scheme: dark)" />
@@ -46,6 +48,7 @@
   <meta name="twitter:title" content="Nguyễn Thế Phong | Frontend Developer" />
   <meta name="twitter:description" content="Chuyên gia phát triển ứng dụng Web – React, TypeScript, TanStack, CI/CD." />
   <meta name="twitter:image" content="https://portfolio-lazynerd.vercel.app/assets/images/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Nguyễn Thế Phong - Frontend Developer" />
 
   <!-- Favicon (inline SVG monogram, zero extra request) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236C63FF'/%3E%3Cstop offset='1' stop-color='%2300D4AA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230a0a1a'/%3E%3Ctext x='32' y='44' font-family='Arial, sans-serif' font-size='34' font-weight='800' text-anchor='middle' fill='url(%23g)'%3EP%3C/text%3E%3C/svg%3E" />
@@ -55,24 +58,39 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Nguyễn Thế Phong",
-    "url": "https://portfolio-lazynerd.vercel.app/",
-    "jobTitle": "Frontend Developer",
-    "email": "mailto:phongnguyenphong267@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Hà Nội",
-      "addressCountry": "VN"
-    },
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Đại học Giao thông Vận tải"
-    },
-    "knowsAbout": ["React", "TypeScript", "JavaScript", "Next.js", "Frontend Development"],
-    "sameAs": [
-      "https://github.com/NTPhong04102k4",
-      "https://t.me/PhongNguyen2004"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://portfolio-lazynerd.vercel.app/#website",
+        "url": "https://portfolio-lazynerd.vercel.app/",
+        "name": "Nguyễn Thế Phong | Portfolio",
+        "inLanguage": "vi-VN",
+        "publisher": { "@id": "https://portfolio-lazynerd.vercel.app/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://portfolio-lazynerd.vercel.app/#person",
+        "name": "Nguyễn Thế Phong",
+        "url": "https://portfolio-lazynerd.vercel.app/",
+        "image": "https://portfolio-lazynerd.vercel.app/assets/images/og-image.jpg",
+        "description": "Frontend Developer chuyên React, TypeScript, TanStack, CI/CD. Tối ưu hiệu suất UI và kiến trúc Frontend mở rộng.",
+        "jobTitle": "Frontend Developer",
+        "email": "mailto:phongnguyenphong267@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Hà Nội",
+          "addressCountry": "VN"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Đại học Giao thông Vận tải"
+        },
+        "knowsAbout": ["React", "TypeScript", "JavaScript", "Next.js", "TanStack Query", "Frontend Development"],
+        "sameAs": [
+          "https://github.com/NTPhong04102k4",
+          "https://t.me/PhongNguyen2004"
+        ]
+      }
     ]
   }
   </script>
