@@ -9,9 +9,9 @@ module.exports = defineConfig({
   retries: 1,
   reporter: [['list']],
   use: { baseURL: 'http://localhost:4173' },
-  // Static site: any static server works. python ships with most dev machines.
+  // Static site: tiny Node server (no extra dependency).
   webServer: {
-    command: 'python -m http.server 4173',
+    command: 'node tests/static-server.mjs',
     url: 'http://localhost:4173/learn/index.html',
     reuseExistingServer: true,
   },
