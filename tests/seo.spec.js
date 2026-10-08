@@ -64,3 +64,25 @@ test.describe('SEO: sitemap và robots', () => {
     expect(txt).toContain(`Sitemap: ${ORIGIN}/sitemap.xml`);
   });
 });
+
+test.describe('SEO: generator', () => {
+  test('file sinh ra khớp seo/site.config.mjs (npm run seo:check)', () => {
+    const { execFileSync } = require('node:child_process');
+    expect(() => execFileSync('node', ['seo/generate-seo.mjs', '--check'], { stdio: 'pipe' })).not.toThrow();
+  });
+
+  test('đổi SITE_URL thì mọi URL đổi theo', () => {
+    const { execFileSync } = require('node:child_process');
+    // --check với siteUrl khác phải báo "out of date" (exit 1), chứng tỏ URL lấy từ config
+    let failed = false;
+    try {
+      execFileSync('node', ['seo/generate-seo.mjs', '--check'], {
+        stdio: 'pipe',
+        env: { ...process.env, SITE_URL: 'https://learn.example.com' },
+      });
+    } catch {
+      failed = true;
+    }
+    expect(failed).toBe(true);
+  });
+});
