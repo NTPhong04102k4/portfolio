@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Học HTML CSS3 JS jQuery</title>
+    <meta
+      name="description"
+      content="Tài liệu tự học HTML, CSS3, JavaScript, jQuery kèm demo chạy được."
+    />
+    <link rel="stylesheet" href="learn.css" />
+  </head>
+  <body>
+    <nav id="topbar" aria-label="Mục lục">
+      <a href="#html">HTML</a>
+      <a href="#selectors">Selector</a>
+      <a href="#transform">Transform</a>
+      <a href="#easing">Easing</a>
+      <a href="#anim2d">2D</a>
+      <a href="#anim3d">3D</a>
+      <a href="#layout">Flex/Grid</a>
+      <a href="#cssadv">CSS nâng cao</a>
+      <a href="#js">JS</a>
+      <a href="#jquery">jQuery</a>
+      <a href="#http">fetch / Axios</a>
+      <a href="#dims">Kích thước</a>
+      <a href="#form">Check info</a>
+    </nav>
+
+    <main id="page">
+      <header class="block">
+        <h1>Học HTML · CSS3 · JS · jQuery</h1>
+        <p>
+          Mỗi phần có demo chạy được và đoạn code tương ứng. Di chuột (hover)
+          hoặc bấm nút để xem hiệu ứng. Mở file <code>learn.css</code> và
+          <code>learn.js</code> để đọc chú thích tiếng Việt.
+        </p>
+        <p>
+          Trang này độc lập với portfolio: HTML + CSS3 thuần, JS thuần và jQuery
+          (qua CDN).
+        </p>
+      </header>
+
+      <!-- ================= HTML ================= -->
+      <section id="html" class="block reveal">
+        <h2>1. HTML: cơ bản đến nâng cao</h2>
+        <h3>Cơ bản</h3>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>Cấu trúc + ngữ nghĩa</h4>
+            <pre><code>&lt;header&gt; &lt;nav&gt; &lt;main&gt;
+  &lt;section id="about" class="block"&gt;
+    &lt;h2&gt;Tiêu đề&lt;/h2&gt;
+    &lt;p&gt;Đoạn văn&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt; &lt;footer&gt;</code></pre>
+            <p>
+              <code>id</code> là duy nhất trong trang (CSS:
+              <code>#about</code>). <code>class</code> dùng lại nhiều lần (CSS:
+              <code>.block</code>).
+            </p>
+          </div>
+          <div class="card">
+            <h4>Danh sách, link, ảnh</h4>
+            <pre><code>&lt;ul&gt;&lt;li&gt;A&lt;/li&gt;&lt;/ul&gt;
+&lt;ol&gt;&lt;li&gt;1&lt;/li&gt;&lt;/ol&gt;
+&lt;a href="#html" target="_blank"
+   rel="noopener"&gt;Link&lt;/a&gt;
+&lt;img src="a.jpg" alt="Mô tả"
+     width="400" height="300"
+     loading="lazy"&gt;</code></pre>
+          </div>
+        </div>
+        <h3>Nâng cao</h3>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>details / summary (không cần JS)</h4>
+            <details>
+              <summary>Bấm để mở</summary>
+              <p>Nội dung ẩn/hiện bằng HTML thuần.</p>
+            </details>
+            <pre><code>&lt;details&gt;
+  &lt;summary&gt;Bấm để mở&lt;/summary&gt;
+  &lt;p&gt;Nội dung&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+          </div>
+          <div class="card">
+            <h4>dialog (modal có sẵn)</h4>
+            <button class="btn" id="open-dialog" type="button">
+              Mở dialog
+            </button>
+            <dialog id="demo-dialog">
+              <p style="color: #111">
+                Đây là &lt;dialog&gt; gốc của trình duyệt.
+              </p>
+              <button class="btn" id="close-dialog" type="button">Đóng</button>
+            </dialog>
+            <pre><code>dlg.showModal();  // mở
+dlg.close();      // đóng</code></pre>
+          </div>
+          <div class="card">
+            <h4>Form validation gốc</h4>
+            <pre><code>&lt;input type="email" required
+       minlength="5"
+       pattern="[a-z]+"
+       autocomplete="email"&gt;
+&lt;input type="number" min="1" max="9"&gt;
+&lt;input type="range"&gt; &lt;input type="date"&gt;</code></pre>
+          </div>
+          <div class="card">
+            <h4>data-*, aria-*, picture, template</h4>
+            <pre><code>&lt;li data-id="7" data-role="admin"&gt;
+// JS: li.dataset.id  → "7"
+&lt;button aria-expanded="false"
+        aria-controls="menu"&gt;
+&lt;picture&gt;
+  &lt;source media="(min-width:768px)"
+          srcset="big.jpg"&gt;
+  &lt;img src="small.jpg" alt=""&gt;
+&lt;/picture&gt;
+&lt;template id="tpl"&gt;...&lt;/template&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SELECTORS ================= -->
+      <section id="selectors" class="block reveal">
+        <h2>2. Selector, hover, active, ::before, ::after</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>:hover + ::after (gạch chân chạy)</h4>
+            <div class="stage">
+              <a href="#selectors" class="link-fx">Rê chuột vào đây</a>
+            </div>
+            <pre><code>.link-fx { position: relative; }
+.link-fx::after {
+  content: ""; position: absolute;
+  left: 0; bottom: 0; width: 100%; height: 2px;
+  transform: scaleX(0);
+  transition: transform .4s;
+}
+.link-fx:hover::after { transform: scaleX(1); }</code></pre>
+          </div>
+          <div class="card">
+            <h4>:active, :focus-visible</h4>
+            <div class="stage">
+              <button class="btn" type="button">Nhấn giữ tôi</button>
+            </div>
+            <pre><code>.btn:hover  { transform: translateY(-2px); }
+.btn:active { transform: scale(.97); }
+.btn:focus-visible { outline: 3px solid; }</code></pre>
+          </div>
+          <div class="card">
+            <h4>::before + :nth-child + :not</h4>
+            <div class="stage">
+              <ul class="list-demo">
+                <li>Mục 1</li>
+                <li>Mục 2</li>
+                <li class="badge-new">Mục 3</li>
+                <li>Mục 4</li>
+                <li>Mục 5</li>
+              </ul>
+            </div>
+            <pre><code>li:nth-child(odd)  { color: teal; }
+li:nth-child(3n)   { font-weight: 700; }
+li:not(:last-child){ margin-bottom: .2rem; }
+.badge-new::before { content: "★ "; }</code></pre>
+          </div>
+          <div class="card">
+            <h4>:has() (selector cha) + :valid</h4>
+            <div class="stage form-demo">
+              <div>
+                <input type="text" required placeholder="Gõ gì đó" />
+                <p class="hint">Ô trống → chữ đỏ</p>
+              </div>
+            </div>
+            <pre><code>.form-demo:has(input:invalid) .hint
+  { color: red; }
+input:valid { border-color: teal; }</code></pre>
+          </div>
+        </div>
+        <h3>Bảng selector nhanh</h3>
+        <pre><code>#id            theo id           .class        theo class
+div p          con cháu          div &gt; p       con trực tiếp
+h2 + p         anh em liền kề    h2 ~ p        mọi anh em sau
+[type="text"]  theo thuộc tính   a[href^="http"]  bắt đầu bằng
+:first-child :last-child :nth-of-type(2) :empty :checked :disabled
+:is(h1,h2) :where() :not() :has()    ::first-letter ::selection ::placeholder</code></pre>
+        <p>
+          Độ ưu tiên (specificity):
+          <code>inline &gt; #id &gt; .class &gt; thẻ</code>. Tránh
+          <code>!important</code>.
+        </p>
+      </section>
+
+      <!-- ================= TRANSFORM ================= -->
+      <section id="transform" class="block reveal">
+        <h2>3. transform, translate, rotate, scale, opacity (fade)</h2>
+        <p>Rê chuột vào từng ô vuông.</p>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>translate</h4>
+            <div class="stage"><div id="t-translate" class="box"></div></div>
+            <pre><code>transform: translate(40px, -10px);</code></pre>
+          </div>
+          <div class="card">
+            <h4>rotate</h4>
+            <div class="stage"><div id="t-rotate" class="box"></div></div>
+            <pre><code>transform: rotate(135deg);</code></pre>
+          </div>
+          <div class="card">
+            <h4>scale</h4>
+            <div class="stage"><div id="t-scale" class="box"></div></div>
+            <pre><code>transform: scale(1.5);</code></pre>
+          </div>
+          <div class="card">
+            <h4>skew</h4>
+            <div class="stage"><div id="t-skew" class="box"></div></div>
+            <pre><code>transform: skew(20deg, 8deg);</code></pre>
+          </div>
+          <div class="card">
+            <h4>opacity (fade)</h4>
+            <div class="stage"><div id="t-fade" class="box"></div></div>
+            <pre><code>opacity: .15;  /* 0 trong suốt → 1 rõ */</code></pre>
+          </div>
+          <div class="card">
+            <h4>kết hợp</h4>
+            <div class="stage"><div id="t-combo" class="box"></div></div>
+            <pre><code>transform: translateY(-14px)
+           rotate(20deg) scale(1.2);</code></pre>
+          </div>
+        </div>
+        <p>
+          <code>transform</code> và <code>opacity</code> chạy trên GPU nên mượt.
+          Hạn chế animate <code>width</code>, <code>top</code>,
+          <code>left</code> (gây reflow).
+        </p>
+      </section>
+
+      <!-- ================= EASING ================= -->
+      <section id="easing" class="block reveal">
+        <h2>4. transition + cubic-bezier</h2>
+        <p>
+          Bấm nút để cả 5 quả bóng chạy cùng lúc, so sánh đường cong tốc độ.
+        </p>
+        <button class="btn" id="run-easing" type="button">Chạy / Về</button>
+        <div class="demo-grid" style="margin-top: 1rem">
+          <div class="card">
+            <h4>linear</h4>
+            <div class="track"><div class="ball e-linear"></div></div>
+          </div>
+          <div class="card">
+            <h4>ease</h4>
+            <div class="track"><div class="ball e-ease"></div></div>
+          </div>
+          <div class="card">
+            <h4>cubic-bezier(.22,1,.36,1) — out mượt</h4>
+            <div class="track"><div class="ball e-out"></div></div>
+          </div>
+          <div class="card">
+            <h4>cubic-bezier(.34,1.56,.64,1) — nảy</h4>
+            <div class="track"><div class="ball e-spring"></div></div>
+          </div>
+          <div class="card">
+            <h4>steps(5)</h4>
+            <div class="track"><div class="ball e-steps"></div></div>
+          </div>
+        </div>
+        <pre><code>transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+/* cubic-bezier(x1, y1, x2, y2): 2 điểm điều khiển của đường cong.
+   x trong 0..1 (thời gian), y có thể &gt;1 hoặc &lt;0 để tạo hiệu ứng nảy. */
+transition: all .3s ease-in-out .1s;  /* thuộc tính | thời gian | easing | delay */</code></pre>
+      </section>
+
+      <!-- ================= 2D ================= -->
+      <section id="anim2d" class="block reveal">
+        <h2>5. Animation 2D với @keyframes</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>pulse</h4>
+            <div class="stage"><div class="box a-pulse"></div></div>
+          </div>
+          <div class="card">
+            <h4>bounce</h4>
+            <div class="stage"><div class="box a-bounce"></div></div>
+          </div>
+          <div class="card">
+            <h4>spin</h4>
+            <div class="stage"><div class="box a-spin"></div></div>
+          </div>
+          <div class="card">
+            <h4>slide-in (chạy lại bằng nút)</h4>
+            <div class="stage">
+              <div class="box a-slide" id="slide-box"></div>
+            </div>
+            <button class="btn" id="replay-slide" type="button">
+              Chạy lại
+            </button>
+          </div>
+          <div class="card">
+            <h4>shake (khi báo lỗi)</h4>
+            <div class="stage"><div class="box" id="shake-box"></div></div>
+            <button class="btn" id="run-shake" type="button">Lắc</button>
+          </div>
+          <div class="card">
+            <h4>chữ gradient chạy</h4>
+            <div class="stage"><span class="a-text">Xin chào</span></div>
+          </div>
+        </div>
+        <pre><code>@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  40%      { transform: translateY(-40px); }
+}
+.a-bounce { animation: bounce 1.2s infinite; }
+/* animation: name duration timing-function delay
+              iteration-count direction fill-mode; */</code></pre>
+      </section>
+
+      <!-- ================= 3D ================= -->
+      <section id="anim3d" class="block reveal">
+        <h2>6. Animation 3D</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>Khối lập phương xoay</h4>
+            <div class="stage scene3d">
+              <div class="cube">
+                <div class="cube__face cube__face--front">1</div>
+                <div class="cube__face cube__face--back">2</div>
+                <div class="cube__face cube__face--right">3</div>
+                <div class="cube__face cube__face--left">4</div>
+                <div class="cube__face cube__face--top">5</div>
+                <div class="cube__face cube__face--bottom">6</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>Thẻ lật (hover hoặc chạm)</h4>
+            <div class="stage">
+              <div class="flip" id="flip-card">
+                <div class="flip__inner">
+                  <div class="flip__side flip__front">Mặt trước</div>
+                  <div class="flip__side flip__back">Mặt sau</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>Nghiêng theo chuột (JS + 3D)</h4>
+            <div class="stage tilt" id="tilt-area">
+              <div class="tilt__card" id="tilt-card">Di chuột</div>
+            </div>
+          </div>
+        </div>
+        <pre><code>.scene  { perspective: 700px; }              /* "camera" */
+.card3d { transform-style: preserve-3d; }    /* con nằm trong không gian 3D */
+.face   { backface-visibility: hidden; }     /* ẩn mặt sau */
+.front  { transform: translateZ(45px); }
+.right  { transform: rotateY(90deg) translateZ(45px); }
+.flip:hover .inner { transform: rotateY(180deg); }
+/* trục: X ngang, Y dọc, Z hướng ra người xem */</code></pre>
+      </section>
+
+      <!-- ================= LAYOUT ================= -->
+      <section id="layout" class="block reveal">
+        <h2>7. Flexbox và Grid</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>flex: 1 / 2 / cố định</h4>
+            <div class="stage">
+              <div class="flex-demo">
+                <span>1</span><span>2</span><span>60px</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>justify + align</h4>
+            <div class="stage">
+              <div class="flex-demo is-center">
+                <span>A</span><span>B</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>space-between</h4>
+            <div class="stage">
+              <div class="flex-demo is-between">
+                <span>A</span><span>B</span><span>C</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>grid span</h4>
+            <div class="stage">
+              <div class="grid-demo">
+                <span>span 2</span><span>2</span><span>3</span><span>4</span
+                ><span>col 2/4</span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>grid-template-areas</h4>
+            <div class="stage">
+              <div class="areas-demo">
+                <span class="h">head</span><span class="s">side</span
+                ><span class="m">main</span><span class="f">foot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <pre><code>/* Flex: 1 chiều */
+.row { display: flex; gap: .5rem; justify-content: space-between;
+       align-items: center; flex-wrap: wrap; }
+.row &gt; .grow { flex: 1; }        /* flex: grow shrink basis */
+
+/* Grid: 2 chiều */
+.grid { display: grid; gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.big  { grid-column: span 2; }
+/* Chọn: 1 hàng/cột → flex. Cả hàng lẫn cột → grid. */</code></pre>
+      </section>
+
+      <!-- ================= CSS ADV ================= -->
+      <section id="cssadv" class="block reveal">
+        <h2>8. CSS nâng cao</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>clamp() — chữ co giãn</h4>
+            <div class="stage">
+              <p class="clamp-text" style="color: #fff">Kéo cửa sổ thử xem</p>
+            </div>
+            <pre><code>font-size: clamp(1rem, 2vw + .5rem, 2rem);
+/* clamp(MIN, ƯU TIÊN, MAX) */</code></pre>
+          </div>
+          <div class="card">
+            <h4>aspect-ratio</h4>
+            <div class="stage"><div class="aspect">16 / 9</div></div>
+          </div>
+          <div class="card">
+            <h4>scroll-snap</h4>
+            <div class="stage">
+              <div class="snap">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>glass (backdrop-filter)</h4>
+            <div
+              class="stage"
+              style="background: linear-gradient(135deg, #6c63ff, #00d4aa)"
+            >
+              <div class="glass">Kính mờ</div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>truncate / line-clamp</h4>
+            <div class="stage" style="display: block">
+              <p class="truncate">
+                Một đoạn rất dài sẽ bị cắt bằng dấu ba chấm ở cuối dòng này
+              </p>
+              <p class="line-clamp">
+                Đoạn này bị giới hạn hai dòng. Đoạn này bị giới hạn hai dòng.
+                Đoạn này bị giới hạn hai dòng. Đoạn này bị giới hạn hai dòng.
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <h4>Container query (kéo góc phải dưới)</h4>
+            <div class="stage">
+              <div class="cq-wrap">
+                <div class="cq-box">Rộng ≥ 300px thì đổi màu</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <pre><code>:root { --primary: #6c63ff; }  .x { color: var(--primary); }  /* biến */
+width: min(100%, 600px);  height: max(40px, 5vh);  margin: calc(1rem + 2vw);
+@media (min-width: 768px) { ... }                 /* tablet */
+@media (prefers-color-scheme: dark) { ... }       /* theme hệ thống */
+@media (prefers-reduced-motion: reduce) { * { animation: none; } }
+@container (min-width: 300px) { ... }             /* theo cha, không theo viewport */
+@supports (backdrop-filter: blur(1px)) { ... }
+position: sticky; inset: 0; z-index: 10;
+filter: blur(4px) drop-shadow(0 4px 8px #0006);   mix-blend-mode: screen;
+will-change: transform;   /* gợi ý GPU, dùng tiết kiệm */</code></pre>
+      </section>
+
+      <!-- ================= JS ================= -->
+      <section id="js" class="block reveal">
+        <h2>9. JavaScript: addEventListener và API trình duyệt</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>addEventListener + classList</h4>
+            <div class="stage">
+              <button class="btn" id="js-toggle" type="button">
+                Bật / tắt class
+              </button>
+              <div class="box" id="js-target" style="margin-top: 0.5rem"></div>
+            </div>
+            <pre><code>const btn = document.querySelector('#js-toggle');
+btn.addEventListener('click', () =&gt; {
+  box.classList.toggle('a-pulse');
+});
+// removeEventListener, { once: true }, { passive: true }</code></pre>
+          </div>
+          <div class="card">
+            <h4>Event delegation</h4>
+            <div class="stage">
+              <ul id="delegate-list" class="list-demo" style="cursor: pointer">
+                <li data-id="1">Mục 1</li>
+                <li data-id="2">Mục 2</li>
+                <li data-id="3">Mục 3</li>
+              </ul>
+              <p id="delegate-out">Bấm một mục</p>
+            </div>
+            <pre><code>list.addEventListener('click', (e) =&gt; {
+  const li = e.target.closest('li');
+  if (!li) return;
+  out.textContent = li.dataset.id;
+});</code></pre>
+          </div>
+          <div class="card">
+            <h4>Debounce (ô tìm kiếm)</h4>
+            <div class="stage" style="display: block">
+              <input
+                id="search-input"
+                class="field"
+                style="
+                  width: 100%;
+                  padding: 0.6rem;
+                  background: #0d0d22;
+                  color: #fff;
+                  border: 1px solid #26264a;
+                  border-radius: 8px;
+                "
+                placeholder="Gõ nhanh rồi dừng"
+              />
+              <p id="search-out">Chưa gõ</p>
+            </div>
+            <pre><code>function debounce(fn, ms = 400) {
+  let t;
+  return (...a) =&gt; { clearTimeout(t); t = setTimeout(() =&gt; fn(...a), ms); };
+}
+input.addEventListener('input', debounce(search));</code></pre>
+          </div>
+          <div class="card">
+            <h4>IntersectionObserver (reveal khi cuộn)</h4>
+            <p>Các section trên trang này tự hiện khi cuộn tới.</p>
+            <pre><code>const io = new IntersectionObserver((entries) =&gt; {
+  entries.forEach((en) =&gt; {
+    if (en.isIntersecting) {
+      en.target.classList.add('is-in');
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach((el) =&gt; io.observe(el));</code></pre>
+          </div>
+          <div class="card">
+            <h4>localStorage + dataset</h4>
+            <div class="stage">
+              <button class="btn" id="count-btn" type="button">Đếm: 0</button>
+            </div>
+            <pre><code>localStorage.setItem('n', 5);
+const n = Number(localStorage.getItem('n') ?? 0);
+JSON.stringify(obj); JSON.parse(str);   // lưu object</code></pre>
+          </div>
+          <div class="card">
+            <h4>Nâng cao: cú pháp hiện đại</h4>
+            <pre><code>const { a, b = 1, ...rest } = obj;      // destructuring
+const arr2 = [...arr, 4];               // spread
+user?.address?.city ?? 'N/A';           // optional chaining + nullish
+arr.map().filter().reduce();            // mảng
+const [r1, r2] = await Promise.all([f1(), f2()]);
+structuredClone(obj);                   // copy sâu
+export function f() {}  import { f } from './x.js';  // module
+requestAnimationFrame(loop);            // vòng lặp animation
+new ResizeObserver(cb).observe(el);
+el.animate([{opacity:0},{opacity:1}], 500);  // Web Animations API
+matchMedia('(max-width:768px)').matches;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= JQUERY ================= -->
+      <section id="jquery" class="block reveal">
+        <h2>10. jQuery cơ bản (selector theo id / class)</h2>
+        <div class="demo-grid">
+          <div class="card">
+            <h4>$('#id'), $('.class'), .on(), .toggleClass()</h4>
+            <div class="stage">
+              <button class="btn" id="jq-toggle" type="button">
+                jQuery toggle
+              </button>
+              <div class="box jq-box" style="margin-top: 0.5rem"></div>
+            </div>
+            <pre><code>$('#jq-toggle').on('click', function () {
+  $('.jq-box').toggleClass('a-spin');
+});</code></pre>
+          </div>
+          <div class="card">
+            <h4>Hiệu ứng: fadeIn / fadeOut / slideToggle</h4>
+            <div class="stage" style="display: block">
+              <button class="btn" id="jq-fade" type="button">Fade</button>
+              <button class="btn" id="jq-slide" type="button">Slide</button>
+              <div id="jq-panel" class="glass" style="margin-top: 0.5rem">
+                Nội dung panel
+              </div>
+            </div>
+            <pre><code>$('#jq-fade').on('click', () =&gt; $('#jq-panel').fadeToggle(400));
+$('#jq-slide').on('click', () =&gt; $('#jq-panel').slideToggle());
+$('.x').animate({ left: '100px' }, 500);</code></pre>
+          </div>
+          <div class="card">
+            <h4>DOM: .text(), .html(), .append(), .val()</h4>
+            <div class="stage" style="display: block">
+              <input
+                id="jq-input"
+                style="
+                  width: 100%;
+                  padding: 0.6rem;
+                  background: #0d0d22;
+                  color: #fff;
+                  border: 1px solid #26264a;
+                  border-radius: 8px;
+                "
+                placeholder="Nhập rồi bấm Thêm"
+              /><button
+                class="btn"
+                id="jq-add"
+                type="button"
+                style="margin: 0.5rem 0"
+              >
+                Thêm
+              </button>
+              <ul id="jq-list"></ul>
+            </div>
+            <pre><code>$('#jq-add').on('click', function () {
+  const v = $('#jq-input').val().trim();
+  if (!v) return;
+  $('#jq-list').append($('&lt;li&gt;').text(v));
+  $('#jq-input').val('').focus();
+});</code></pre>
+          </div>
+        </div>
+        <pre><code>$(document).ready(fn)  hoặc  $(fn)       $('#a .b'), $('li:first'), $(this)
+.addClass .removeClass .hasClass .attr .prop .data .css .show .hide
+.parent() .children() .find() .closest() .siblings() .next() .each()
+$(document).on('click', '.dynamic', fn)   // delegation cho phần tử tạo sau
+$.ajax / $.get / $.post / $.getJSON</code></pre>
+      </section>
+
+      <!-- ================= HTTP ================= -->
+      <section id="http" class="block reveal">
+        <h2>11. fetch thay Axios (không cài thư viện)</h2>
+        <div class="card">
+          <button class="btn" id="fetch-btn" type="button">Gọi API thử</button>
+          <p id="fetch-out" aria-live="polite">Chưa gọi</p>
+        </div>
+        <pre><code>async function http(url, { method = 'GET', data, headers = {}, timeout = 8000 } = {}) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() =&gt; ctrl.abort(), timeout);
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', ...headers },
+      body: data ? JSON.stringify(data) : undefined,
+      signal: ctrl.signal,
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);   // fetch không tự throw 4xx/5xx
+    return await res.json();
+  } finally { clearTimeout(timer); }
+}</code></pre>
+        <p>
+          So với Axios: không có interceptor sẵn (tự thêm vào hàm bọc), không tự
+          parse lỗi. Đổi lại không tốn thư viện nào.
+        </p>
+      </section>
+
+      <!-- ================= DIMENSIONS ================= -->
+      <section id="dims" class="block reveal">
+        <h2>12. Đo kích thước màn hình và xoay màn</h2>
+        <p>
+          Không fix cứng width. Đọc <code>window.innerWidth</code> /
+          <code>window.innerHeight</code> rồi suy ra thiết bị và hướng xoay. Thu
+          nhỏ cửa sổ hoặc xoay điện thoại để xem số đổi.
+        </p>
+        <div class="card">
+          <p
+            id="dim-out"
+            aria-live="polite"
+            style="color: #fff; font-family: Consolas, monospace"
+          >
+            ...
+          </p>
+        </div>
+        <pre><code>function getWindowDimensions() {
+  const width  = window.innerWidth;
+  const height = window.innerHeight;
+  return {
+    width, height,
+    orientation: width &gt; height ? 'landscape' : 'portrait',
+    device: width &lt; 768 ? 'mobile' : width &lt; 1024 ? 'tablet' : 'desktop',
+  };
+}
+window.addEventListener('resize', update);
+window.addEventListener('orientationchange', update);
+/* CSS: html[data-orientation="landscape"] .hero { min-height: auto; } */</code></pre>
+      </section>
+
+      <!-- ================= FORM CHECK ================= -->
+      <section id="form" class="block reveal">
+        <h2>13. Check info: kiểm tra form (JS thuần)</h2>
+        <form id="demo-form" class="card" novalidate>
+          <div class="field" data-field="name">
+            <input id="f-name" placeholder="Họ tên" autocomplete="name" />
+            <p class="msg"></p>
+          </div>
+          <div class="field" data-field="email">
+            <input
+              id="f-email"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+            />
+            <p class="msg"></p>
+          </div>
+          <div class="field" data-field="phone">
+            <input
+              id="f-phone"
+              type="tel"
+              placeholder="Số điện thoại (VN)"
+              autocomplete="tel"
+            />
+            <p class="msg"></p>
+          </div>
+          <button class="btn" type="submit">Gửi</button>
+          <p id="form-result" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <footer class="block" style="border: 0">
+        <p>
+          Tài liệu tham khảo:
+          <a
+            href="https://developer.mozilla.org/vi/"
+            target="_blank"
+            rel="noopener"
+            >MDN</a
+          >
+          ·
+          <a href="https://api.jquery.com/" target="_blank" rel="noopener"
+            >jQuery API</a
+          >
+          ·
+          <a href="https://cubic-bezier.com/" target="_blank" rel="noopener"
+            >cubic-bezier.com</a
+          >
+        </p>
+      </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="learn.js"></script>
+  </body>
+</html>
