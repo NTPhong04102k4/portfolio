@@ -1,0 +1,237 @@
+/* ======================== NAVBAR ======================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* Constant height: animating padding on .scrolled re-laid-out the bar
+     (and everything under scroll-padding-top) on every threshold cross. */
+  padding: 0.75rem 0;
+  border-bottom: 1px solid transparent;
+  transition: background var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease),
+              border-color var(--duration) var(--ease);
+}
+
+.navbar.scrolled {
+  background: var(--navbar-scrolled-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--navbar-scrolled-shadow);
+  border-bottom-color: var(--clr-border);
+}
+
+.navbar__container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-scroll-bottom {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-text-muted);
+  transition: all var(--duration) var(--ease);
+}
+
+.nav-scroll-bottom:hover {
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  transform: translateY(2px);
+}
+
+.navbar__logo {
+  font-family: var(--ff-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--clr-heading);
+  letter-spacing: -0.02em;
+}
+
+.navbar__logo-bracket {
+  color: var(--clr-primary);
+}
+
+.navbar__logo-slash {
+  color: var(--clr-secondary);
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar__link {
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  border-radius: 50px;
+  transition: color var(--duration) var(--ease),
+              background var(--duration) var(--ease);
+  position: relative;
+}
+
+.navbar__link:hover,
+.navbar__link.active {
+  color: var(--clr-heading);
+}
+
+.navbar__link.active {
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--clr-primary);
+}
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.navbar__toggle-bar {
+  width: 24px;
+  height: 2px;
+  background: var(--clr-text);
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  transform-origin: center;
+}
+
+.navbar__toggle.active .navbar__toggle-bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar__toggle.active .navbar__toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.navbar__toggle.active .navbar__toggle-bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ======================== BACKDROP OVERLAY ======================== */
+.navbar__backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop-bg);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
+}
+
+.navbar__backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ======================== NAV COLLAPSE (≤ 900px) ========================
+   6 Vietnamese nav labels + logo + theme toggle don't reliably fit on one
+   line below ~960px, so the hamburger breakpoint is raised above the
+   768px content breakpoint to avoid a wrapped/overlapping desktop navbar
+   on tablets and small laptops. */
+@media (max-width: 900px) {
+  /* Fade only — no slide, no transform, nothing that moves horizontally.
+     The panel is already at its final position and size while hidden; the
+     only animated property is opacity. The background is 97% opaque, so a
+     backdrop blur would be invisible and just re-blur a 100dvh region. */
+  .navbar__menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* 45% of the screen, capped at 270px */
+    width: min(45%, 270px);
+    height: 100vh; /* fallback for browsers without dvh */
+    height: 100dvh;
+    background: var(--mobile-menu-bg);
+    flex-direction: column;
+    /* stretch (not flex-start): every <li> fills the drawer, so the
+       active/hover highlight is the same width on every item */
+    align-items: stretch;
+    padding: 6rem 1rem 2rem;
+    gap: 1rem;
+    border-left: 1px solid var(--clr-border);
+    opacity: 0;
+    visibility: hidden;
+    /* visibility flips after the fade-out finishes (0.3s delay) */
+    transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+    will-change: opacity;
+    overscroll-behavior: contain;
+    /* Short viewports (landscape phones, large text/zoom): scroll the links
+       instead of clipping the last ones below the fold. */
+    overflow-y: auto;
+    display: flex;
+  }
+
+  .navbar__menu.open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s var(--ease), visibility 0s;
+  }
+
+  .navbar__link {
+    /* flex (block-level) → the <a> fills its <li>, so every item, and the
+       active highlight, has the same width. min-height keeps a 44px tap
+       target; align-items centres the label vertically. */
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    /* scales with the screen (narrow drawer = 45% width) but stays 14.4–17.6px */
+    font-size: clamp(1rem, 3.4vw, 1.1rem);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Links fade in one after another once the panel is visible — opacity
+     only, so nothing shifts. */
+  .navbar__menu li {
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .navbar__menu.open li {
+    opacity: 1;
+  }
+
+  .navbar__menu.open li:nth-child(1) { transition-delay: 0.1s; }
+  .navbar__menu.open li:nth-child(2) { transition-delay: 0.15s; }
+  .navbar__menu.open li:nth-child(3) { transition-delay: 0.2s; }
+  .navbar__menu.open li:nth-child(4) { transition-delay: 0.25s; }
+  .navbar__menu.open li:nth-child(5) { transition-delay: 0.3s; }
+  .navbar__menu.open li:nth-child(6) { transition-delay: 0.35s; }
+
+  /* Keep theme toggle + hamburger above the drawer so the toggle isn't
+     buried under the panel while the menu is open. */
+  .navbar__actions {
+    position: relative;
+    z-index: 1001;
+  }
+
+  .navbar__toggle {
+    display: flex;
+  }
+}

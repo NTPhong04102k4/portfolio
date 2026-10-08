@@ -1,31 +1,33 @@
 /* ========================================================
    PORTFOLIO — Nguyễn Thế Phong | Frontend Developer
    Entry point — imports all CSS modules
-   
-   Design: Cyberpunk aesthetic, purple-cyan gradient, 
+
+   Layout:
+     core/    tokens, reset, shared keyframes (no page knowledge)
+     shared/  layout pieces used on every page (navbar, footer, ...)
+     pages/   one file per section; each owns its own media queries
+
+   Design: Cyberpunk aesthetic, purple-cyan gradient,
    glassmorphism, dark/light theme support
    ======================================================== */
 
-/* Theme variables (dark + light) */
-@import url('variables.css');
+/* Core: theme variables (dark + light), reset/typography/buttons */
+@import url('core/variables.css');
+@import url('core/base.css');
 
-/* Reset, typography, utilities, buttons */
-@import url('base.css');
+/* Shared */
+@import url('shared/loader.css');
+@import url('shared/navbar.css');
+@import url('shared/theme-toggle.css');
+@import url('shared/footer.css');
 
-/* Components */
-@import url('components/loader.css');
-@import url('components/navbar.css');
-@import url('components/theme-toggle.css');
-@import url('components/hero.css');
-@import url('components/about.css');
-@import url('components/skills.css');
-@import url('components/projects.css');
-@import url('components/timeline.css');
-@import url('components/contact.css');
-@import url('components/footer.css');
+/* Pages */
+@import url('pages/hero.css');
+@import url('pages/about.css');
+@import url('pages/skills.css');
+@import url('pages/projects.css');
+@import url('pages/experience.css');
+@import url('pages/contact.css');
 
 /* Keyframes & reveal animations */
-@import url('animations.css');
-
-/* Responsive breakpoints */
-@import url('responsive.css');
+@import url('core/animations.css');
