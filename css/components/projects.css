@@ -8,6 +8,7 @@
 }
 
 .projects__filter {
+  min-height: 44px;
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
   font-size: var(--fs-sm);

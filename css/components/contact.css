@@ -58,6 +58,14 @@
   color: var(--clr-text-muted);
 }
 
+/* Tap target >= 44px for links */
+.contact__info-item a {
+  display: inline-block;
+  overflow-wrap: anywhere;
+  padding: 0.75rem 0;
+  margin: -0.75rem 0;
+}
+
 .contact__info-item a:hover {
   color: var(--clr-primary);
 }
