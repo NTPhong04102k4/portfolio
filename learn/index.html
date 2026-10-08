@@ -674,6 +674,19 @@ $.ajax / $.get / $.post / $.getJSON</code></pre>
     return await res.json();
   } finally { clearTimeout(timer); }
 }</code></pre>
+        <h3>Cách 2: jQuery <code>$.getJSON</code> (JSON được format)</h3>
+        <div class="card">
+          <button class="btn" id="jq-api-btn" type="button">$.getJSON /posts/1</button>
+          <button class="btn" id="jq-api-fail" type="button">Thử lỗi 404</button>
+          <pre id="jq-api-out" aria-live="polite">Chưa gọi</pre>
+        </div>
+        <pre><code>$.getJSON('https://jsonplaceholder.typicode.com/posts/1')
+  .done(function (data) {
+    $('#jq-api-out').text(JSON.stringify(data, null, 2));   // 2 = thụt 2 dấu cách
+  })
+  .fail(function (xhr) {
+    $('#jq-api-out').text('Lỗi ' + xhr.status);
+  });</code></pre>
         <p>
           So với Axios: không có interceptor sẵn (tự thêm vào hàm bọc), không tự
           parse lỗi. Đổi lại không tốn thư viện nào.

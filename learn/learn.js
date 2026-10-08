@@ -145,6 +145,16 @@ $('#fetch-btn').on('click', async function () {
   }
 });
 
+/* jQuery gọi API: $.getJSON + JSON.stringify(data, null, 2) để format */
+function showJson(url) {
+  const $out = $('#jq-api-out').text('Đang tải...');
+  $.getJSON(url)
+    .done(function (data) { $out.text(JSON.stringify(data, null, 2)); })
+    .fail(function (xhr) { $out.text('Lỗi ' + xhr.status); });
+}
+$('#jq-api-btn').on('click', function () { showJson('https://jsonplaceholder.typicode.com/posts/1'); });
+$('#jq-api-fail').on('click', function () { showJson('https://jsonplaceholder.typicode.com/posts/999999'); });
+
 /* ---------- 4. CHECK INFO (validate form, JS thuần) ---------- */
 (function () {
   const form = document.getElementById('demo-form');
