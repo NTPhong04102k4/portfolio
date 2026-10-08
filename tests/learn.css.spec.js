@@ -18,19 +18,17 @@ test.describe('CSS3 (cơ bản + nâng cao)', () => {
     test.skip(isMobile, 'hover chỉ có với chuột');
     await page.locator('#t-translate').scrollIntoViewIfNeeded();
     await page.locator('#t-translate').hover();
-    await page.waitForTimeout(900);
-    expect(await css(page, '#t-translate', 'transform')).toBe('matrix(1, 0, 0, 1, 40, -10)');
+    // poll: the transition (0.6s) may still be running when we first read
+    await expect.poll(() => css(page, '#t-translate', 'transform')).toBe('matrix(1, 0, 0, 1, 40, -10)');
   });
 
   test('transform: scale và opacity (fade) khi :hover', async ({ page, isMobile }) => {
     test.skip(isMobile, 'hover chỉ có với chuột');
     await page.locator('#t-scale').scrollIntoViewIfNeeded();
     await page.locator('#t-scale').hover();
-    await page.waitForTimeout(900);
-    expect(await css(page, '#t-scale', 'transform')).toBe('matrix(1.5, 0, 0, 1.5, 0, 0)');
+    await expect.poll(() => css(page, '#t-scale', 'transform')).toBe('matrix(1.5, 0, 0, 1.5, 0, 0)');
     await page.locator('#t-fade').hover();
-    await page.waitForTimeout(900);
-    expect(Number(await css(page, '#t-fade', 'opacity'))).toBeCloseTo(0.15, 2);
+    await expect.poll(async () => Number(await css(page, '#t-fade', 'opacity'))).toBeCloseTo(0.15, 2);
   });
 
   test('::before / ::after sinh nội dung', async ({ page }) => {
@@ -57,9 +55,8 @@ test.describe('CSS3 (cơ bản + nâng cao)', () => {
   test('3D: bấm thẻ lật → mặt trước quay 180 độ', async ({ page }) => {
     await page.locator('#flip-card').scrollIntoViewIfNeeded();
     await page.locator('#flip-card').click();
-    await page.waitForTimeout(1100);
     // rotateY(180deg) → ma trận 3D có phần tử đầu = -1
-    expect(await css(page, '.flip__inner', 'transform')).toMatch(/^matrix3d\(-1,/);
+    await expect.poll(() => css(page, '.flip__inner', 'transform')).toMatch(/^matrix3d\(-1,/);
   });
 
   test('flex / grid', async ({ page }) => {
