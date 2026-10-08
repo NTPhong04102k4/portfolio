@@ -2,6 +2,7 @@
    COMPONENT — Particle Network (Hero Canvas)
    ======================================================== */
 import { $, debounce, prefersReducedMotion } from '../utils.js';
+import { getWindowDimensions } from '../dimensions.js';
 import { SELECTORS, PARTICLE_CONFIG, HERO_OBSERVER_OPTIONS } from '../constants.js';
 
 /**
@@ -16,7 +17,7 @@ export function initParticles() {
   const cfg = PARTICLE_CONFIG;
   // Halve the density budget on narrow (mobile) viewports to keep the
   // animation cheap on lower-power devices.
-  const maxCount = window.innerWidth < 768 ? Math.round(cfg.maxCount / 2) : cfg.maxCount;
+  const maxCount = getWindowDimensions().isMobile ? Math.round(cfg.maxCount / 2) : cfg.maxCount;
   let particles = [];
   // Logical (CSS px) size — all particle maths happens in this space.
   let width = 0;

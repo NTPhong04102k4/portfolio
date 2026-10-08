@@ -69,6 +69,9 @@ export const SCROLL_CONFIG = {
   backToTopThreshold: 500,
 };
 
+// Width thresholds (px) used by js/dimensions.js — keep in sync with css/responsive.css
+export const BREAKPOINTS = { tablet: 768, desktop: 1024 };
+
 // Must match the hamburger breakpoint in css/responsive.css
 export const NAV_COLLAPSE_QUERY = "(max-width: 900px)";
 

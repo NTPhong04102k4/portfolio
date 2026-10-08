@@ -8,6 +8,7 @@
    ======================================================== */
 
 import { $ } from "./utils.js";
+import { initDimensions } from "./dimensions.js";
 import { SELECTORS } from "./constants.js";
 
 // Templates (HTML rendering)
@@ -51,6 +52,9 @@ app.innerHTML = [
 ].join("\n");
 
 // ======================== INIT ========================
+
+// Window size / orientation → <html data-device data-orientation> + --vw/--vh
+initDimensions();
 
 // Theme (apply ASAP to prevent flash)
 initThemeToggle();

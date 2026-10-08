@@ -8,8 +8,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* minmax(0,1fr): a bare 1fr has min-content as its floor, so one long
+     unbroken string (e.g. the email) stretches the column past the viewport */
   .about__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
   }
 
@@ -19,7 +21,7 @@
   }
 
   .contact__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
