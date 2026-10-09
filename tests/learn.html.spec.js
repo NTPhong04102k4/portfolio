@@ -50,3 +50,17 @@ test.describe('HTML (cơ bản + nâng cao)', () => {
     await expect(page.locator('#f-email')).toHaveAttribute('autocomplete', 'email');
   });
 });
+
+test('asset không 404 dù mở /learn (không có dấu / cuối) hay /learn/', async ({ page }) => {
+  for (const url of ['/learn', '/learn/']) {
+    const bad = [];
+    page.on('response', (r) => r.status() >= 400 && bad.push(`${r.status()} ${r.url()}`));
+    await page.goto(url);
+    await expect(page.locator('h1')).toHaveCount(1);
+    // CSS và JS của trang phải thực sự được áp dụng
+    expect(await page.$eval('#topbar', (e) => getComputedStyle(e).position)).toBe('sticky');
+    await expect(page.locator('#dim-out')).not.toHaveText('...');
+    expect(bad, url).toEqual([]);
+    page.removeAllListeners('response');
+  }
+});

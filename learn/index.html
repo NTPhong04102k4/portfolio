@@ -46,7 +46,9 @@
   }
   </script>
   <!-- seo:jsonld:end -->
-    <link rel="stylesheet" href="learn.css" />
+    <!-- Absolute paths: /learn (no trailing slash) would resolve "learn.css" to /learn.css -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236C63FF'/%3E%3Cstop offset='1' stop-color='%2300D4AA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230a0a1a'/%3E%3Ctext x='32' y='44' font-family='Arial, sans-serif' font-size='34' font-weight='800' text-anchor='middle' fill='url(%23g)'%3EP%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/learn/learn.css" />
   </head>
   <body>
     <nav id="topbar" aria-label="Mục lục">
@@ -815,6 +817,6 @@ window.addEventListener('orientationchange', update);
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="learn.js"></script>
+    <script src="/learn/learn.js"></script>
   </body>
 </html>
